@@ -86,7 +86,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     float bombTimeLeft = GetEntPropFloat(c4, Prop_Send, "m_flC4Blow");
     char timeLeftString[64];
     
-    FloatToString(bombTimeLeft, timeLeftString, sizeof(timeLeftString));
+    FloatToString(GetGameTime() - bombTimeLeft, timeLeftString, sizeof(timeLeftString));
     
     if(GetConVarInt(hEndIfTooLate) == 1 && bombTimeLeft < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
     {
@@ -121,7 +121,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
         return;
     }
     
-    PrintToChatAll("%s There was %s left of the bomb. CT Win.", MESSAGE_PREFIX, timeLeftString);
+    PrintToChatAll("%s There was %s seconds left of the bomb. CT Win.", MESSAGE_PREFIX, timeLeftString);
     
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown", 0.0);
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseLength", 0.0);
