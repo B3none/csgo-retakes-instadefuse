@@ -8,7 +8,7 @@
 
 #define MESSAGE_PREFIX "[\x02InstaDefuse\x01]"
  
-Handle hcv_NoobMargin = null;
+Handle hcv_SafetyBlanket = null;
  
 Handle hcv_InfernoDuration = null;
  
@@ -31,7 +31,7 @@ public void OnPluginStart()
     HookEvent("player_death", Event_AttemptInstantDefuse, EventHookMode_PostNoCopy);
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
     
-    hcv_NoobMargin = CreateConVar("instant_defuse_noob_margin", "5.2", "To prevent noobs from instantly running for their lives when instant defuse fails, instant defuse won't activate if defuse may be uncertain to the player.");
+    hcv_SafetyBlanket = CreateConVar("instant_defuse_safety_blanket", "5.2", "Safety blanket. We don't auto defuse when the time left on the total bomb timer is < x seconds to prevent the plugin being incorrect should they jump and tap defuse.");
     
     hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
 }
@@ -82,7 +82,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     {
         return;
     }
-    else if(GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") - GetConVarFloat(hcv_NoobMargin) < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
+    else if(GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") - GetConVarFloat(hcv_SafetyBlanket) < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
     {
         PrintToChatAll("%s Defuse not certain enough, Good luck defusing!", MESSAGE_PREFIX);
         return;
