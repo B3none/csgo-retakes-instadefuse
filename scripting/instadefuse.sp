@@ -116,7 +116,6 @@ public Action Event_AttemptInstantDefuse(Handle hEvent, const char[] Name, bool 
 {
     int defuser = FindDefusingPlayer();
    
-   
     int ent = 0;
    
     if(StrContains(Name, "detonate") != -1)
@@ -177,17 +176,9 @@ stock int FindDefusingPlayer()
 {
     for(int i = 1; i <= MaxClients; i++)
     {
-        if(!IsClientInGame(i))
+        if(!IsValidClient(i) || !IsPlayerAlive(i) || !GetEntProp(i, Prop_Send, "m_bIsDefusing"))
         {
             continue;
-        }
-        else if(!IsPlayerAlive(i))
-        {
-            continue;
-        }
-        else if(!GetEntProp(i, Prop_Send, "m_bIsDefusing"))
-        {
-        	continue;
         }
            
         return i;
@@ -196,19 +187,11 @@ stock int FindDefusingPlayer()
     return 0;
 }
  
-stock int FindAlivePlayer(int Team)
+stock int FindAlivePlayer(int team)
 {
     for(int i = 1; i <= MaxClients; i++)
     {
-        if(!IsClientInGame(i))
-        {
-            continue;
-        }  
-        else if(!IsPlayerAlive(i))
-        {
-            continue;
-        }  
-        else if(GetClientTeam(i) != Team)
+        if(!IsValidClient(i) || !IsPlayerAlive(i) || GetClientTeam(i) != team)
         {
             continue;
         }
@@ -217,4 +200,13 @@ stock int FindAlivePlayer(int Team)
     }
    
     return 0;
+}
+
+stock bool IsValidClient(int client, bool botsValid = true)
+{
+    if (client <= 0 || client > MaxClients || !IsClientConnected(client) || !IsClientAuthorized(client) || (botsValid && IsFakeClient(client)))
+    {
+		return false;
+    }
+    return IsClientInGame(client);
 }
