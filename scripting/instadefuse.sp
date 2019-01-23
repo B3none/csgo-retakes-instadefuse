@@ -176,12 +176,10 @@ stock int FindDefusingPlayer()
 {
     for(int i = 1; i <= MaxClients; i++)
     {
-        if(!IsValidClient(i) || !IsPlayerAlive(i) || !GetEntProp(i, Prop_Send, "m_bIsDefusing"))
+        if(IsValidClient(i) && IsPlayerAlive(i) && GetEntProp(i, Prop_Send, "m_bIsDefusing"))
         {
-            continue;
+            return i;
         }
-           
-        return i;
     }
    
     return 0;
@@ -191,12 +189,10 @@ stock int FindAlivePlayer(int team)
 {
     for(int i = 1; i <= MaxClients; i++)
     {
-        if(!IsValidClient(i) || !IsPlayerAlive(i) || GetClientTeam(i) != team)
+        if(IsValidClient(i) && IsPlayerAlive(i) && GetClientTeam(i) == team)
         {
-            continue;
+            return i;
         }
-        
-        return i;
     }
    
     return 0;
