@@ -130,23 +130,27 @@ public Action Event_AttemptInstantDefuse(Handle hEvent, const char[] Name, bool 
 	}
 }
 
-public Action:Event_MolotovDetonate(Handle:hEvent, const String:Name[], bool:dontBroadcast)
+public Action Event_MolotovDetonate(Handle hEvent, const char[] Name, bool dontBroadcast)
 {
-    new Float:Origin[3];
+    float Origin[3];
     Origin[0] = GetEventFloat(hEvent, "x");
     Origin[1] = GetEventFloat(hEvent, "y");
     Origin[2] = GetEventFloat(hEvent, "z");
    
-    new c4 = FindEntityByClassname(MaxClients + 1, "planted_c4");
+    int c4 = FindEntityByClassname(MaxClients + 1, "planted_c4");
    
     if(c4 == -1)
+    {
         return;
+    }
    
-    new Float:C4Origin[3];
+    float C4Origin[3];
     GetEntPropVector(c4, Prop_Data, "m_vecOrigin", C4Origin);
    
     if(GetVectorDistance(Origin, C4Origin, false) > GetConVarFloat(hcv_InfernoDistance))
+    {
         return;
+    }
  
     if(hTimer_MolotovThreatEnd != null)
     {
@@ -157,19 +161,21 @@ public Action:Event_MolotovDetonate(Handle:hEvent, const String:Name[], bool:don
     hTimer_MolotovThreatEnd = CreateTimer(GetConVarFloat(hcv_InfernoDuration), Timer_MolotovThreatEnd, _, TIMER_FLAG_NO_MAPCHANGE);
 }
  
-public Action:Timer_MolotovThreatEnd(Handle:hTimer)
+public Action Timer_MolotovThreatEnd(Handle hTimer)
 {
     hTimer_MolotovThreatEnd = null;
    
-    new defuser = FindDefusingPlayer();
+    int defuser = FindDefusingPlayer();
    
     if(defuser != 0)
+    {
         AttemptInstantDefuse(defuser);
+    }
 }
  
-stock FindDefusingPlayer()
+stock int FindDefusingPlayer()
 {
-    for(new i=1;i <= MaxClients;i++)
+    for(int i = 1; i <= MaxClients; i++)
     {
         if(!IsClientInGame(i))
         {
@@ -190,19 +196,23 @@ stock FindDefusingPlayer()
     return 0;
 }
  
-stock FindAlivePlayer(Team)
+stock int FindAlivePlayer(int Team)
 {
-    for(new i=1;i <= MaxClients;i++)
+    for(int i = 1; i <= MaxClients; i++)
     {
         if(!IsClientInGame(i))
+        {
             continue;
-           
+        }  
         else if(!IsPlayerAlive(i))
+        {
             continue;
-           
+        }  
         else if(GetClientTeam(i) != Team)
+        {
             continue;
-           
+        }
+        
         return i;
     }
    
