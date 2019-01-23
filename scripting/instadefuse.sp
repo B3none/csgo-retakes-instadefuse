@@ -21,26 +21,26 @@ public Plugin myinfo = {
     version = "1.0.0",
     url = "https://github.com/b3none"
 }
- 
+
 public void OnPluginStart()
 {
     HookEvent("bomb_begindefuse", Event_BombBeginDefuse, EventHookMode_Post);
     HookEvent("molotov_detonate", Event_MolotovDetonate);
     HookEvent("hegrenade_detonate", Event_AttemptInstantDefuse, EventHookMode_Post);
- 
+    
     HookEvent("player_death", Event_AttemptInstantDefuse, EventHookMode_PostNoCopy);
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
-   
+    
     hcv_NoobMargin = CreateConVar("instant_defuse_noob_margin", "5.2", "To prevent noobs from instantly running for their lives when instant defuse fails, instant defuse won't activate if defuse may be uncertain to the player.");
-   
+    
     hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
 }
- 
+
 public void OnMapStart()
 {
     hTimer_MolotovThreatEnd = null;
 }
- 
+
 public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
     if(hTimer_MolotovThreatEnd != null)
@@ -49,14 +49,14 @@ public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadca
         hTimer_MolotovThreatEnd = null;
     }
 }
- 
+
 public Action Event_BombBeginDefuse(Handle event, const char[] name, bool dontBroadcast)
 {  
     RequestFrame(Event_BombBeginDefusePlusFrame, GetEventInt(event, "userid"));
    
     return Plugin_Continue;
 }
- 
+
 public void Event_BombBeginDefusePlusFrame(int userId)
 {
     int client = GetClientOfUserId(userId);
@@ -66,7 +66,7 @@ public void Event_BombBeginDefusePlusFrame(int userId)
     	AttemptInstantDefuse(client);
     }
 }
- 
+
 void AttemptInstantDefuse(int client, int exemptNade = 0)
 {
     if(!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
@@ -77,12 +77,8 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     int StartEnt = MaxClients + 1;
     
     int c4 = FindEntityByClassname(StartEnt, "planted_c4");
-   
-    if(c4 == -1)
-    {
-        return;
-    }
-    else if(FindAlivePlayer(CS_TEAM_T) != 0)
+    
+    if(c4 == -1 || FindAlivePlayer(CS_TEAM_T) != 0)
     {
         return;
     }
@@ -112,15 +108,15 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     SetEntProp(client, Prop_Send, "m_iProgressBarDuration", 0);
 }
  
-public Action Event_AttemptInstantDefuse(Handle hEvent, const char[] Name, bool dontBroadcast)
+public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool dontBroadcast)
 {
     int defuser = FindDefusingPlayer();
    
     int ent = 0;
    
-    if(StrContains(Name, "detonate") != -1)
+    if(StrContains(name, "detonate") != -1)
     {
-        ent = GetEventInt(hEvent, "entityid");
+        ent = GetEventInt(event, "entityid");
     }
     
     if(defuser != 0)
@@ -129,12 +125,12 @@ public Action Event_AttemptInstantDefuse(Handle hEvent, const char[] Name, bool 
 	}
 }
 
-public Action Event_MolotovDetonate(Handle hEvent, const char[] Name, bool dontBroadcast)
+public Action Event_MolotovDetonate(Handle event, const char[] name, bool dontBroadcast)
 {
     float Origin[3];
-    Origin[0] = GetEventFloat(hEvent, "x");
-    Origin[1] = GetEventFloat(hEvent, "y");
-    Origin[2] = GetEventFloat(hEvent, "z");
+    Origin[0] = GetEventFloat(event, "x");
+    Origin[1] = GetEventFloat(event, "y");
+    Origin[2] = GetEventFloat(event, "z");
    
     int c4 = FindEntityByClassname(MaxClients + 1, "planted_c4");
    
@@ -160,7 +156,7 @@ public Action Event_MolotovDetonate(Handle hEvent, const char[] Name, bool dontB
     hTimer_MolotovThreatEnd = CreateTimer(GetConVarFloat(hcv_InfernoDuration), Timer_MolotovThreatEnd, _, TIMER_FLAG_NO_MAPCHANGE);
 }
  
-public Action Timer_MolotovThreatEnd(Handle hTimer)
+public Action Timer_MolotovThreatEnd(Handle timer)
 {
     hTimer_MolotovThreatEnd = null;
    
