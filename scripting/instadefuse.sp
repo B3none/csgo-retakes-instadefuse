@@ -8,8 +8,6 @@
 
 #define MESSAGE_PREFIX "[\x02InstaDefuse\x01]"
  
-Handle hcv_SafetyBlanket = null;
- 
 Handle hcv_InfernoDuration = null;
  
 Handle hTimer_MolotovThreatEnd = null;
@@ -30,8 +28,6 @@ public void OnPluginStart()
     
     HookEvent("player_death", Event_AttemptInstantDefuse, EventHookMode_PostNoCopy);
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
-    
-    hcv_SafetyBlanket = CreateConVar("instant_defuse_safety_blanket", "5.2", "Safety blanket. We don't auto defuse when the time left on the total bomb timer is < x seconds to prevent the plugin being incorrect should they jump and tap defuse.");
     
     hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
 }
@@ -82,11 +78,10 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     {
         return;
     }
-    else if(GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") - GetConVarFloat(hcv_SafetyBlanket) < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
+    else if(GetEntityFlags(client) & !FL_ONGROUND)
     {
-        PrintToChatAll("%s Defuse not certain enough, Good luck defusing!", MESSAGE_PREFIX);
-        return;
-    }
+    	return;
+    }  
  
     int ent;
     if((ent = FindEntityByClassname(StartEnt, "hegrenade_projectile")) != -1 || (ent = FindEntityByClassname(StartEnt, "molotov_projectile")) != -1)
