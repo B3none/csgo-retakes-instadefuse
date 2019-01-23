@@ -78,7 +78,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     {
         return;
     }
-    else if(GetEntityFlags(client) & !FL_ONGROUND)
+    else if(GetEntityFlags(client) && !FL_ONGROUND)
     {
     	return;
     }  
