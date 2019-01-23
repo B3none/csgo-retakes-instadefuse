@@ -11,7 +11,6 @@
 Handle hcv_NoobMargin = null;
  
 Handle hcv_InfernoDuration = null;
-Handle hcv_InfernoDistance = null;
  
 Handle hTimer_MolotovThreatEnd = null;
  
@@ -35,7 +34,6 @@ public void OnPluginStart()
     hcv_NoobMargin = CreateConVar("instant_defuse_noob_margin", "5.2", "To prevent noobs from instantly running for their lives when instant defuse fails, instant defuse won't activate if defuse may be uncertain to the player.");
    
     hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
-    hcv_InfernoDistance = CreateConVar("instant_defuse_inferno_distance", "225.0", "If Valve ever change the maximum spread of molotov, this cvar should change with it.");
 }
  
 public void OnMapStart()
@@ -43,7 +41,7 @@ public void OnMapStart()
     hTimer_MolotovThreatEnd = null;
 }
  
-public Action Event_RoundStart(Handle hEvent, const char[] Name, bool dontBroadcast)
+public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
     if(hTimer_MolotovThreatEnd != null)
     {
@@ -52,9 +50,9 @@ public Action Event_RoundStart(Handle hEvent, const char[] Name, bool dontBroadc
     }
 }
  
-public Action Event_BombBeginDefuse(Handle hEvent, const char[] Name, bool dontBroadcast)
+public Action Event_BombBeginDefuse(Handle event, const char[] name, bool dontBroadcast)
 {  
-    RequestFrame(Event_BombBeginDefusePlusFrame, GetEventInt(hEvent, "userid"));
+    RequestFrame(Event_BombBeginDefusePlusFrame, GetEventInt(event, "userid"));
    
     return Plugin_Continue;
 }
@@ -63,21 +61,21 @@ public void Event_BombBeginDefusePlusFrame(int userId)
 {
     int client = GetClientOfUserId(userId);
    
-    if(client == 0)
+    if(IsValidClient(client))
     {
-    	return;
+    	AttemptInstantDefuse(client);
     }
-    
-    AttemptInstantDefuse(client);
 }
  
 void AttemptInstantDefuse(int client, int exemptNade = 0)
 {
     if(!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
+    {
         return;
-       
+    }
+    
     int StartEnt = MaxClients + 1;
-       
+    
     int c4 = FindEntityByClassname(StartEnt, "planted_c4");
    
     if(c4 == -1)
@@ -108,7 +106,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
         PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
         return;
     }
-       
+    
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown", 0.0);
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseLength", 0.0);
     SetEntProp(client, Prop_Send, "m_iProgressBarDuration", 0);
@@ -148,7 +146,7 @@ public Action Event_MolotovDetonate(Handle hEvent, const char[] Name, bool dontB
     float C4Origin[3];
     GetEntPropVector(c4, Prop_Data, "m_vecOrigin", C4Origin);
    
-    if(GetVectorDistance(Origin, C4Origin, false) > GetConVarFloat(hcv_InfernoDistance))
+    if(GetVectorDistance(Origin, C4Origin, false) > 150)
     {
         return;
     }
@@ -204,11 +202,7 @@ stock int FindAlivePlayer(int team)
     return 0;
 }
 
-stock bool IsValidClient(int client, bool botsValid = true)
+stock bool IsValidClient(int client)
 {
-    if (client <= 0 || client > MaxClients || !IsClientConnected(client) || !IsClientAuthorized(client) || (botsValid && IsFakeClient(client)))
-    {
-		return false;
-    }
-    return IsClientInGame(client);
+    return IsClientInGame(client) && client > 0 && client <= MaxClients && IsClientConnected(client) && IsClientAuthorized(client) && !IsFakeClient(client);
 }
