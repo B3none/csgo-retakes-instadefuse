@@ -5,6 +5,8 @@
 
 #pragma semicolon 1
 #pragma newdecls required
+
+#define MESSAGE_PREFIX "[\x02InstaDefuse\x01]"
  
 Handle hcv_NoobMargin = null;
  
@@ -33,7 +35,7 @@ public void OnPluginStart()
     hcv_NoobMargin = CreateConVar("instant_defuse_noob_margin", "5.2", "To prevent noobs from instantly running for their lives when instant defuse fails, instant defuse won't activate if defuse may be uncertain to the player.");
    
     hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
-    hcv_InfernoDistance = CreateConVar("instant_defuse_inferno_distance", "225.0", "If Valve ever changed the maximum distance spread of molotov, this cvar should change with it.");
+    hcv_InfernoDistance = CreateConVar("instant_defuse_inferno_distance", "225.0", "If Valve ever change the maximum spread of molotov, this cvar should change with it.");
 }
  
 public void OnMapStart()
@@ -88,7 +90,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     }
     else if(GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") - GetConVarFloat(hcv_NoobMargin) < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
     {
-        PrintToChatAll("\x01 \x09[\x04%s\x09]\x01 Defuse not certain enough, Good luck defusing!", "Insta-Defuse");
+        PrintToChatAll("%s Defuse not certain enough, Good luck defusing!", MESSAGE_PREFIX);
         return;
     }
  
@@ -97,13 +99,13 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     {
         if(ent != exemptNade)
         {
-            PrintToChatAll("\x01 \x09[\x04%s\x09]\x01 There is a live nade somewhere, Good luck defusing!", "Insta-Defuse");
+            PrintToChatAll("%s There is a live nade somewhere, Good luck defusing!", MESSAGE_PREFIX);
             return;
         }
     }  
     else if(hTimer_MolotovThreatEnd != null)
     {
-        PrintToChatAll("\x01 \x09[\x04%s\x09]\x01 Molotov too close to bomb, Good luck defusing!", "Insta-Defuse");
+        PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
         return;
     }
        
