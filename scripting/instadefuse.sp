@@ -8,8 +8,8 @@
 
 #define MESSAGE_PREFIX "[\x02InstaDefuse\x01]"
  
+Handle hOnlyTooLate = null;
 Handle hcv_InfernoDuration = null;
- 
 Handle hTimer_MolotovThreatEnd = null;
  
 public Plugin myinfo = {
@@ -30,6 +30,7 @@ public void OnPluginStart()
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
     
     hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
+    hOnlyTooLate = CreateConVar("instant_defuse_only_too_late", "1.0", "If Valve ever changed the duration of molotov, this cvar should change with it.", _, true, 0.0, true, 1.0);
 }
 
 public void OnMapStart()
@@ -77,6 +78,15 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     if(c4 == -1 || FindAlivePlayer(CS_TEAM_T) != 0)
     {
         return;
+    }
+    else if(GetConVarInt(hOnlyTooLate) == 1)
+    {
+    	if (GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown")) 
+    	{
+    		// Force Terrorist win because they do not have enough time to defuse the bomb.
+    		CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
+    	}
+    	return;
     }
     else if(GetEntityFlags(client) && !FL_ONGROUND)
     {
