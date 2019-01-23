@@ -82,12 +82,20 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     {
         return;
     }
-    else if(GetConVarInt(hEndIfTooLate) == 1 && GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
+    
+    float bombTimeLeft = GetEntPropFloat(c4, Prop_Send, "m_flC4Blow");
+    char timeLeftString[64];
+    
+    FloatToString(bombTimeLeft, timeLeftString, sizeof(timeLeftString));
+    
+    if(GetConVarInt(hEndIfTooLate) == 1 && bombTimeLeft < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
     {
-		// Force Terrorist win because they do not have enough time to defuse the bomb.
-		CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
-		
-		return;
+    	PrintToChatAll("%s There was %s seconds left of the bomb. T Win.", MESSAGE_PREFIX, timeLeftString);
+    	
+    	// Force Terrorist win because they do not have enough time to defuse the bomb.
+    	CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
+    	
+    	return;
     }
     else if (GetConVarInt(hDefuseIfTime) != 1)
     {
@@ -112,6 +120,8 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
         PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
         return;
     }
+    
+    PrintToChatAll("%s There was %s left of the bomb. CT Win.", MESSAGE_PREFIX, timeLeftString);
     
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown", 0.0);
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseLength", 0.0);
