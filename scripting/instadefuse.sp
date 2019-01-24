@@ -13,6 +13,8 @@ Handle hDefuseIfTime = null;
 
 Handle hcv_InfernoDuration = null;
 Handle hTimer_MolotovThreatEnd = null;
+
+float g_c4PlantTime = 0.0;
  
 public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
@@ -25,6 +27,7 @@ public Plugin myinfo = {
 public void OnPluginStart()
 {
     HookEvent("bomb_begindefuse", Event_BombBeginDefuse, EventHookMode_Post);
+    HookEvent("bomb_planted", Event_BombPlanted, EventHookMode_Pre);
     HookEvent("molotov_detonate", Event_MolotovDetonate);
     HookEvent("hegrenade_detonate", Event_AttemptInstantDefuse, EventHookMode_Post);
     
@@ -48,6 +51,11 @@ public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadca
         CloseHandle(hTimer_MolotovThreatEnd);
         hTimer_MolotovThreatEnd = null;
     }
+}
+
+public Action Event_BombPlanted(Handle event, const char[] name, bool dontBroadcast)
+{
+    g_c4PlantTime = GetGameTime();
 }
 
 public Action Event_BombBeginDefuse(Handle event, const char[] name, bool dontBroadcast)
@@ -83,14 +91,14 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
         return;
     }
     
-    float bombTimeLeft = GetEntPropFloat(c4, Prop_Send, "m_flC4Blow");
-    char timeLeftString[64];
+    float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
+    char c4TimeLeftString[64];
     
-    FloatToString(GetGameTime() - bombTimeLeft, timeLeftString, sizeof(timeLeftString));
+    FloatToString(c4TimeLeft, c4TimeLeftString, sizeof(c4TimeLeftString));
     
-    if(GetConVarInt(hEndIfTooLate) == 1 && bombTimeLeft < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
+    if(GetConVarInt(hEndIfTooLate) == 1 && GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
     {
-    	PrintToChatAll("%s There was %s seconds left of the bomb. T Win.", MESSAGE_PREFIX, timeLeftString);
+    	PrintToChatAll("%s There was %s seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeftString);
     	
     	// Force Terrorist win because they do not have enough time to defuse the bomb.
     	CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
@@ -121,7 +129,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
         return;
     }
     
-    PrintToChatAll("%s There was %s seconds left of the bomb. CT Win.", MESSAGE_PREFIX, timeLeftString);
+    PrintToChatAll("%s There was %s seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeftString);
     
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown", 0.0);
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseLength", 0.0);
