@@ -86,7 +86,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     
     int c4 = FindEntityByClassname(StartEnt, "planted_c4");
     
-    if(c4 == -1 || FindAlivePlayer(CS_TEAM_T) != 0)
+    if(c4 == -1 || HasAlivePlayer(CS_TEAM_T))
     {
         return;
     }
@@ -205,17 +205,17 @@ stock int FindDefusingPlayer()
     return 0;
 }
  
-stock int FindAlivePlayer(int team)
+stock bool HasAlivePlayer(int team)
 {
     for(int i = 1; i <= MaxClients; i++)
     {
         if(IsValidClient(i) && IsPlayerAlive(i) && GetClientTeam(i) == team)
         {
-            return i;
+            return true;
         }
     }
    
-    return 0;
+    return false;
 }
 
 stock bool IsValidClient(int client)
