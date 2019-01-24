@@ -92,27 +92,20 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     }
     
     float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
-    char c4TimeLeftString[64];
-    
-    FloatToString(c4TimeLeft, c4TimeLeftString, sizeof(c4TimeLeftString));
     
     if(GetConVarInt(hEndIfTooLate) == 1 && GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
     {
-    	PrintToChatAll("%s There was %s seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeftString);
+    	PrintToChatAll("%s There was %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
     	
     	// Force Terrorist win because they do not have enough time to defuse the bomb.
     	CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
     	
     	return;
     }
-    else if (GetConVarInt(hDefuseIfTime) != 1)
+    else if (GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
     {
     	return;
     }
-    else if(GetEntityFlags(client) && !FL_ONGROUND)
-    {
-    	return;
-    }  
  
     int ent;
     if((ent = FindEntityByClassname(StartEnt, "hegrenade_projectile")) != -1 || (ent = FindEntityByClassname(StartEnt, "molotov_projectile")) != -1)
@@ -129,11 +122,14 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
         return;
     }
     
-    PrintToChatAll("%s There was %s seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeftString);
+    PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
     
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown", 0.0);
     SetEntPropFloat(c4, Prop_Send, "m_flDefuseLength", 0.0);
     SetEntProp(client, Prop_Send, "m_iProgressBarDuration", 0);
+    
+    // Gonna go ahead and assume that this will prevent my non-defusal problem.
+    CS_TerminateRound(1.0, CSRoundEnd_BombDefused);
 }
  
 public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool dontBroadcast)
