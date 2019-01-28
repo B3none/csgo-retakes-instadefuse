@@ -20,7 +20,7 @@ public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none, Eyal282",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevemt the defusal.",
-    version = "1.0.1",
+    version = "1.0.0",
     url = "https://github.com/b3none"
 }
 
@@ -124,10 +124,15 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	
 	PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
 	
-	int teamScore = CS_GetTeamScore(CS_TEAM_CT) + 1;
-	CS_SetTeamScore(CS_TEAM_CT, teamScore);
-	SetTeamScore(CS_TEAM_CT, teamScore);
+	IncrementTeamScore(CS_TEAM_CT);
 	CS_TerminateRound(1.0, CSRoundEnd_BombDefused, false);
+}
+
+void IncrementTeamScore(int team)
+{
+	int teamScore = CS_GetTeamScore(team) + 1;
+	CS_SetTeamScore(team, teamScore);
+	SetTeamScore(team, teamScore);
 }
  
 public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool dontBroadcast)
