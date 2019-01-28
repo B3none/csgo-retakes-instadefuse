@@ -20,7 +20,7 @@ public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none, Eyal282",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevemt the defusal.",
-    version = "1.0.0",
+    version = "1.0.1",
     url = "https://github.com/b3none"
 }
 
@@ -77,59 +77,57 @@ public void Event_BombBeginDefusePlusFrame(int userId)
 
 void AttemptInstantDefuse(int client, int exemptNade = 0)
 {
-    if(!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
-    {
-        return;
-    }
-    
-    int StartEnt = MaxClients + 1;
-    
-    int c4 = FindEntityByClassname(StartEnt, "planted_c4");
-    
-    if(c4 == -1 || HasAlivePlayer(CS_TEAM_T))
-    {
-        return;
-    }
-    
-    float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
-    
-    if(GetConVarInt(hEndIfTooLate) == 1 && GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
-    {
-    	PrintToChatAll("%s There was %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
-    	
-    	// Force Terrorist win because they do not have enough time to defuse the bomb.
-    	CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
-    	
-    	return;
-    }
-    else if (GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
-    {
-    	return;
-    }
- 
-    int ent;
-    if((ent = FindEntityByClassname(StartEnt, "hegrenade_projectile")) != -1 || (ent = FindEntityByClassname(StartEnt, "molotov_projectile")) != -1)
-    {
-        if(ent != exemptNade)
-        {
-            PrintToChatAll("%s There is a live nade somewhere, Good luck defusing!", MESSAGE_PREFIX);
-            return;
-        }
-    }  
-    else if(hTimer_MolotovThreatEnd != null)
-    {
-        PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
-        return;
-    }
-    
-    PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
-    
-    SetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown", 0.0);
-    SetEntPropFloat(c4, Prop_Send, "m_flDefuseLength", 0.0);
-    SetEntProp(client, Prop_Send, "m_iProgressBarDuration", 0);
-    
-    // Gonna go ahead and assume that this will prevent my non-defusal problem.
-    CS_TerminateRound(1.0, CSRoundEnd_BombDefused);
+	if(!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
+	{
+	    return;
+	}
+	
+	int StartEnt = MaxClients + 1;
+	
+	int c4 = FindEntityByClassname(StartEnt, "planted_c4");
+	
+	if(c4 == -1 || HasAlivePlayer(CS_TEAM_T))
+	{
+	    return;
+	}
+	
+	float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
+	
+	if(GetConVarInt(hEndIfTooLate) == 1 && GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
+	{
+		PrintToChatAll("%s There was %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
+		
+		// Force Terrorist win because they do not have enough time to defuse the bomb.
+		CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
+		
+		return;
+	}
+	else if (GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
+	{
+		return;
+	}
+	
+	int ent;
+	if((ent = FindEntityByClassname(StartEnt, "hegrenade_projectile")) != -1 || (ent = FindEntityByClassname(StartEnt, "molotov_projectile")) != -1)
+	{
+	    if(ent != exemptNade)
+	    {
+	        PrintToChatAll("%s There is a live nade somewhere, Good luck defusing!", MESSAGE_PREFIX);
+	        return;
+	    }
+	}  
+	else if(hTimer_MolotovThreatEnd != null)
+	{
+	    PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
+	    return;
+	}
+	
+	PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
+	
+	int teamScore = CS_GetTeamScore(CS_TEAM_CT) + 1;
+	CS_SetTeamScore(CS_TEAM_CT, teamScore);
+	SetTeamScore(CS_TEAM_CT, teamScore);
+	CS_TerminateRound(1.0, CSRoundEnd_BombDefused, false);
 }
  
 public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool dontBroadcast)
