@@ -159,9 +159,9 @@ public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool d
     }
     
     if(defuser != 0)
-	{
+    {
         AttemptInstantDefuse(defuser, ent);
-	}
+    }
 }
 
 public Action Event_MolotovDetonate(Handle event, const char[] name, bool dontBroadcast)
