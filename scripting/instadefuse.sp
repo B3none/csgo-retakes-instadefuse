@@ -14,13 +14,16 @@ Handle hDefuseIfTime = null;
 Handle hcv_InfernoDuration = null;
 Handle hTimer_MolotovThreatEnd = null;
 
+Handle fw_OnInstantDefusePre = null;
+Handle fw_OnInstantDefusePost = null;
+
 float g_c4PlantTime = 0.0;
  
 public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none, Eyal282",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.0.0",
+    version = "1.1.0",
     url = "https://github.com/b3none"
 }
 
@@ -37,6 +40,10 @@ public void OnPluginStart()
     hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
     hEndIfTooLate = CreateConVar("instant_defuse_end_if_too_late", "1.0", "End the round if too late.", _, true, 0.0, true, 1.0);
     hDefuseIfTime = CreateConVar("instant_defuse_if_time", "1.0", "Instant defuse if there is time to do so.", _, true, 0.0, true, 1.0);
+    
+    // Added the forwards to allow other plugins to call this one.
+    fw_OnInstantDefusePre = CreateGlobalForward("InstantDefuse_OnInstantDefusePre", ET_Event, Param_Cell, Param_Cell);
+    fw_OnInstantDefusePost = CreateGlobalForward("InstantDefuse_OnInstantDefusePost", ET_Ignore, Param_Cell, Param_Cell);
 }
 
 public void OnMapStart()
@@ -95,6 +102,11 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	
 	if(GetConVarInt(hEndIfTooLate) == 1 && GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
 	{
+		if(!OnInstandDefusePre(client, c4))
+		{
+			return;
+		}
+		
 		PrintToChatAll("%s There was %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
 		
 		// Force Terrorist win because they do not have enough time to defuse the bomb.
@@ -122,22 +134,22 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	    return;
 	}
 	
+	if(!OnInstandDefusePre(client, c4))
+	{
+		return;
+	}
+	
 	PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
 	
 	IncrementTeamScore(CS_TEAM_CT);
 	CS_TerminateRound(1.0, CSRoundEnd_BombDefused, false);
-}
-
-void IncrementTeamScore(int team)
-{
-	int teamScore = CS_GetTeamScore(team) + 1;
-	CS_SetTeamScore(team, teamScore);
-	SetTeamScore(team, teamScore);
+	
+	OnInstantDefusePost(client, c4);
 }
  
 public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool dontBroadcast)
 {
-    int defuser = FindDefusingPlayer();
+    int defuser = GetDefusingPlayer();
    
     int ent = 0;
    
@@ -187,15 +199,32 @@ public Action Timer_MolotovThreatEnd(Handle timer)
 {
     hTimer_MolotovThreatEnd = null;
    
-    int defuser = FindDefusingPlayer();
+    int defuser = GetDefusingPlayer();
    
     if(defuser != 0)
     {
         AttemptInstantDefuse(defuser);
     }
 }
+
+void OnInstantDefusePost(int client, int c4)
+{
+	Call_StartForward(fw_OnInstantDefusePost);
+	
+	Call_PushCell(client);
+	Call_PushCell(c4);
+	
+	Call_Finish();
+}
+
+void IncrementTeamScore(int team)
+{
+	int teamScore = CS_GetTeamScore(team) + 1;
+	CS_SetTeamScore(team, teamScore);
+	SetTeamScore(team, teamScore);
+}
  
-stock int FindDefusingPlayer()
+stock int GetDefusingPlayer()
 {
     for(int i = 1; i <= MaxClients; i++)
     {
@@ -206,6 +235,18 @@ stock int FindDefusingPlayer()
     }
    
     return 0;
+}
+
+stock bool OnInstandDefusePre(int client, int c4)
+{
+	Action response;
+	
+	Call_StartForward(fw_OnInstantDefusePre);
+	Call_PushCell(client);
+	Call_PushCell(c4);
+	Call_Finish(response);
+	
+	return !(response != Plugin_Continue && response != Plugin_Changed);
 }
  
 stock bool HasAlivePlayer(int team)
