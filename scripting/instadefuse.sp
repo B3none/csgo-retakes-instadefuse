@@ -20,9 +20,9 @@ float g_c4PlantTime = 0.0;
  
 public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
-    author = "B3none, Eyal282",
+    author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.1.1",
+    version = "1.1.0",
     url = "https://github.com/b3none"
 }
 
