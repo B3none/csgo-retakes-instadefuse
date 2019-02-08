@@ -1,5 +1,4 @@
 #include <sourcemod>
-#include <sdkhooks>
 #include <sdktools>
 #include <cstrike>
 
@@ -23,7 +22,7 @@ public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none, Eyal282",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.1.0",
+    version = "1.1.1",
     url = "https://github.com/b3none"
 }
 
@@ -221,7 +220,6 @@ void IncrementTeamScore(int team)
 {
 	int teamScore = CS_GetTeamScore(team) + 1;
 	CS_SetTeamScore(team, teamScore);
-	SetTeamScore(team, teamScore);
 }
  
 stock int GetDefusingPlayer()
