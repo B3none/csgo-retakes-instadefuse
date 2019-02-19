@@ -9,8 +9,7 @@
  
 Handle hEndIfTooLate = null;
 Handle hDefuseIfTime = null;
-
-Handle hcv_InfernoDuration = null;
+Handle hInfernoDuration = null;
 Handle hTimer_MolotovThreatEnd = null;
 
 Handle fw_OnInstantDefusePre = null;
@@ -36,7 +35,7 @@ public void OnPluginStart()
     HookEvent("player_death", Event_AttemptInstantDefuse, EventHookMode_PostNoCopy);
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
     
-    hcv_InfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
+    hInfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
     hEndIfTooLate = CreateConVar("instant_defuse_end_if_too_late", "1.0", "End the round if too late.", _, true, 0.0, true, 1.0);
     hDefuseIfTime = CreateConVar("instant_defuse_if_time", "1.0", "Instant defuse if there is time to do so.", _, true, 0.0, true, 1.0);
     
@@ -191,7 +190,7 @@ public Action Event_MolotovDetonate(Handle event, const char[] name, bool dontBr
         hTimer_MolotovThreatEnd = null;
     }
    
-    hTimer_MolotovThreatEnd = CreateTimer(GetConVarFloat(hcv_InfernoDuration), Timer_MolotovThreatEnd, _, TIMER_FLAG_NO_MAPCHANGE);
+    hTimer_MolotovThreatEnd = CreateTimer(GetConVarFloat(hInfernoDuration), Timer_MolotovThreatEnd, _, TIMER_FLAG_NO_MAPCHANGE);
 }
  
 public Action Timer_MolotovThreatEnd(Handle timer)
