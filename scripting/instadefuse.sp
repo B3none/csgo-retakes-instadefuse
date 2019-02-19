@@ -21,7 +21,7 @@ public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.1.0",
+    version = "1.1.1",
     url = "https://github.com/b3none"
 }
 
@@ -96,9 +96,10 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	    return;
 	}
 	
+	bool HasKit = GetPlayerWeaponSlot(client, 4) != 0;
 	float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
 	
-	if(GetConVarInt(hEndIfTooLate) == 1 && GetEntPropFloat(c4, Prop_Send, "m_flC4Blow") < GetEntPropFloat(c4, Prop_Send, "m_flDefuseCountDown"))
+	if(GetConVarInt(hEndIfTooLate) == 1 && (c4TimeLeft < 10.0 && !HasKit) || (c4TimeLeft < 5.0 && HasKit))
 	{
 		if(!OnInstandDefusePre(client, c4))
 		{
