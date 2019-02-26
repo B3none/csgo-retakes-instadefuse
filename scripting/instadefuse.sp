@@ -5,7 +5,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define MESSAGE_PREFIX "[\x04VoidRealityGaming\x01]"
+#define MESSAGE_PREFIX "[\x02InstantDefuse\x01]"
  
 Handle hEndIfTooLate = null;
 Handle hDefuseIfTime = null;
