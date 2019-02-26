@@ -5,7 +5,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define MESSAGE_PREFIX "[\x02InstaDefuse\x01]"
+#define MESSAGE_PREFIX "[\x04VoidRealityGaming\x01]"
  
 Handle hEndIfTooLate = null;
 Handle hDefuseIfTime = null;
@@ -22,7 +22,7 @@ public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.1.2",
+    version = "1.1.1",
     url = "https://github.com/b3none"
 }
 
@@ -54,11 +54,11 @@ public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadca
 {
 	g_bAlreadyComplete = false;
 	
-    if(hTimer_MolotovThreatEnd != null)
-    {
-        CloseHandle(hTimer_MolotovThreatEnd);
-        hTimer_MolotovThreatEnd = null;
-    }
+	if(hTimer_MolotovThreatEnd != null)
+	{
+		CloseHandle(hTimer_MolotovThreatEnd);
+		hTimer_MolotovThreatEnd = null;
+	}
 }
 
 public Action Event_BombPlanted(Handle event, const char[] name, bool dontBroadcast)
@@ -67,10 +67,15 @@ public Action Event_BombPlanted(Handle event, const char[] name, bool dontBroadc
 }
 
 public Action Event_BombBeginDefuse(Handle event, const char[] name, bool dontBroadcast)
-{  
-    RequestFrame(Event_BombBeginDefusePlusFrame, GetEventInt(event, "userid"));
-   
-    return Plugin_Continue;
+{
+	if(g_bAlreadyComplete)
+	{
+		return Plugin_Handled;
+	}
+	
+	RequestFrame(Event_BombBeginDefusePlusFrame, GetEventInt(event, "userid"));
+	
+	return Plugin_Continue;
 }
 
 public void Event_BombBeginDefusePlusFrame(int userId)
