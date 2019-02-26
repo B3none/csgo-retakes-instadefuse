@@ -16,12 +16,13 @@ Handle fw_OnInstantDefusePre = null;
 Handle fw_OnInstantDefusePost = null;
 
 float g_c4PlantTime = 0.0;
+bool g_bAlreadyComplete = false;
  
 public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.1.1",
+    version = "1.1.2",
     url = "https://github.com/b3none"
 }
 
@@ -51,6 +52,8 @@ public void OnMapStart()
 
 public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
+	g_bAlreadyComplete = false;
+	
     if(hTimer_MolotovThreatEnd != null)
     {
         CloseHandle(hTimer_MolotovThreatEnd);
@@ -82,6 +85,11 @@ public void Event_BombBeginDefusePlusFrame(int userId)
 
 void AttemptInstantDefuse(int client, int exemptNade = 0)
 {
+	if(g_bAlreadyComplete)
+	{
+		return;
+	}
+	
 	if(!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
 	{
 	    return;
@@ -107,13 +115,14 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 		}
 		
 		PrintToChatAll("%s There was %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
+		g_bAlreadyComplete = true;
 		
 		// Force Terrorist win because they do not have enough time to defuse the bomb.
 		CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
 		
 		return;
 	}
-	else if (GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
+	else if(GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
 	{
 		return;
 	}
@@ -139,6 +148,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	}
 	
 	PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
+	g_bAlreadyComplete = true;
 	
 	IncrementTeamScore(CS_TEAM_CT);
 	CS_TerminateRound(1.0, CSRoundEnd_BombDefused, false);
