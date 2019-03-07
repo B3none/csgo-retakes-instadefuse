@@ -17,12 +17,13 @@ Handle fw_OnInstantDefusePost = null;
 
 float g_c4PlantTime = 0.0;
 bool g_bAlreadyComplete = false;
+bool g_bWouldMakeIt = false;
  
 public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.1.1",
+    version = "1.2.0",
     url = "https://github.com/b3none"
 }
 
@@ -53,8 +54,9 @@ public void OnMapStart()
 public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
 	g_bAlreadyComplete = false;
+	g_bWouldMakeIt = false;
 	
-	if(hTimer_MolotovThreatEnd != null)
+	if (hTimer_MolotovThreatEnd != null)
 	{
 		CloseHandle(hTimer_MolotovThreatEnd);
 		hTimer_MolotovThreatEnd = null;
@@ -68,7 +70,7 @@ public Action Event_BombPlanted(Handle event, const char[] name, bool dontBroadc
 
 public Action Event_BombBeginDefuse(Handle event, const char[] name, bool dontBroadcast)
 {
-	if(g_bAlreadyComplete)
+	if (g_bAlreadyComplete)
 	{
 		return Plugin_Handled;
 	}
@@ -80,9 +82,11 @@ public Action Event_BombBeginDefuse(Handle event, const char[] name, bool dontBr
 
 public void Event_BombBeginDefusePlusFrame(int userId)
 {
-    int client = GetClientOfUserId(userId);
-   
-    if(IsValidClient(client))
+	g_bWouldMakeIt = false;
+	
+	int client = GetClientOfUserId(userId);
+	
+	if (IsValidClient(client))
     {
     	AttemptInstantDefuse(client);
     }
@@ -90,12 +94,12 @@ public void Event_BombBeginDefusePlusFrame(int userId)
 
 void AttemptInstantDefuse(int client, int exemptNade = 0)
 {
-	if(g_bAlreadyComplete)
+	if (g_bAlreadyComplete)
 	{
 		return;
 	}
 	
-	if(!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
+	if (!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
 	{
 	    return;
 	}
@@ -104,7 +108,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	
 	int c4 = FindEntityByClassname(StartEnt, "planted_c4");
 	
-	if(c4 == -1 || HasAlivePlayer(CS_TEAM_T))
+	if (c4 == -1 || HasAlivePlayer(CS_TEAM_T))
 	{
 	    return;
 	}
@@ -112,9 +116,14 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	bool HasKit = GetPlayerWeaponSlot(client, 4) != 0;
 	float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
 	
-	if(GetConVarInt(hEndIfTooLate) == 1 && (c4TimeLeft < 10.0 && !HasKit) || (c4TimeLeft < 5.0 && HasKit))
+	if (!g_bWouldMakeIt)
 	{
-		if(!OnInstandDefusePre(client, c4))
+		g_bWouldMakeIt = (c4TimeLeft >= 10.0 && !HasKit) || (c4TimeLeft >= 5.0 && HasKit);
+	}
+	
+	if (GetConVarInt(hEndIfTooLate) == 1 && !g_bWouldMakeIt)
+	{
+		if (!OnInstandDefusePre(client, c4))
 		{
 			return;
 		}
@@ -127,27 +136,27 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 		
 		return;
 	}
-	else if(GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
+	else if (GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
 	{
 		return;
 	}
 	
 	int ent;
-	if((ent = FindEntityByClassname(StartEnt, "hegrenade_projectile")) != -1 || (ent = FindEntityByClassname(StartEnt, "molotov_projectile")) != -1)
+	if ((ent = FindEntityByClassname(StartEnt, "hegrenade_projectile")) != -1 || (ent = FindEntityByClassname(StartEnt, "molotov_projectile")) != -1)
 	{
-	    if(ent != exemptNade)
+	    if (ent != exemptNade)
 	    {
 	        PrintToChatAll("%s There is a live nade somewhere, Good luck defusing!", MESSAGE_PREFIX);
 	        return;
 	    }
 	}  
-	else if(hTimer_MolotovThreatEnd != null)
+	else if (hTimer_MolotovThreatEnd != null)
 	{
 	    PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
 	    return;
 	}
 	
-	if(!OnInstandDefusePre(client, c4))
+	if (!OnInstandDefusePre(client, c4))
 	{
 		return;
 	}
@@ -167,12 +176,12 @@ public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool d
    
     int ent = 0;
    
-    if(StrContains(name, "detonate") != -1)
+    if (StrContains(name, "detonate") != -1)
     {
         ent = GetEventInt(event, "entityid");
     }
     
-    if(defuser != 0)
+    if (defuser != 0)
     {
         AttemptInstantDefuse(defuser, ent);
     }
@@ -187,7 +196,7 @@ public Action Event_MolotovDetonate(Handle event, const char[] name, bool dontBr
    
     int c4 = FindEntityByClassname(MaxClients + 1, "planted_c4");
    
-    if(c4 == -1)
+    if (c4 == -1)
     {
         return;
     }
@@ -195,12 +204,12 @@ public Action Event_MolotovDetonate(Handle event, const char[] name, bool dontBr
     float C4Origin[3];
     GetEntPropVector(c4, Prop_Data, "m_vecOrigin", C4Origin);
    
-    if(GetVectorDistance(Origin, C4Origin, false) > 150)
+    if (GetVectorDistance(Origin, C4Origin, false) > 150)
     {
         return;
     }
  
-    if(hTimer_MolotovThreatEnd != null)
+    if (hTimer_MolotovThreatEnd != null)
     {
         CloseHandle(hTimer_MolotovThreatEnd);
         hTimer_MolotovThreatEnd = null;
@@ -215,7 +224,7 @@ public Action Timer_MolotovThreatEnd(Handle timer)
    
     int defuser = GetDefusingPlayer();
    
-    if(defuser != 0)
+    if (defuser != 0)
     {
         AttemptInstantDefuse(defuser);
     }
@@ -239,9 +248,9 @@ void IncrementTeamScore(int team)
  
 stock int GetDefusingPlayer()
 {
-    for(int i = 1; i <= MaxClients; i++)
+    for (int i = 1; i <= MaxClients; i++)
     {
-        if(IsValidClient(i) && IsPlayerAlive(i) && GetEntProp(i, Prop_Send, "m_bIsDefusing"))
+        if (IsValidClient(i) && IsPlayerAlive(i) && GetEntProp(i, Prop_Send, "m_bIsDefusing"))
         {
             return i;
         }
@@ -264,9 +273,9 @@ stock bool OnInstandDefusePre(int client, int c4)
  
 stock bool HasAlivePlayer(int team)
 {
-    for(int i = 1; i <= MaxClients; i++)
+    for (int i = 1; i <= MaxClients; i++)
     {
-        if(IsValidClient(i) && IsPlayerAlive(i) && GetClientTeam(i) == team)
+        if (IsValidClient(i) && IsPlayerAlive(i) && GetClientTeam(i) == team)
         {
             return true;
         }
