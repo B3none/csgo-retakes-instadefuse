@@ -3,13 +3,13 @@
     "InstaDefuseUnsuccessful"
     {
         "#format"    "{1:s},{2:.1f}"
-        "dk"        "{1} Der var {2} sekunder tilbage på bomben. Terroristerne vinder."
+        "da"        "{1} Der var {2} sekunder tilbage på bomben. Terroristerne vinder."
     }
 
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "dk"        "{1} Der er en granat i nærheden. Held og lykke med at defuse!"
+        "da"        "{1} Der er en granat i nærheden. Held og lykke med at defuse!"
     }
 
     "MolotovTooClose"
