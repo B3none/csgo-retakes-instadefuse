@@ -3,7 +3,7 @@
 	"InstaDefuseUnsuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"de"		"{1} {2} Es waren Sekunden übrig bis zur Explosion. Die Terroristen gewinnen."
+		"de"		"{1} Es waren {2} Sekunden übrig bis zur Explosion. Die Terroristen gewinnen."
 	}
 
 	"LiveNadeSomewhere"
@@ -21,6 +21,6 @@
 	"InstaDefuseSuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"de"		"{1} {2} Es waren Sekunden übrig bis zur Explosion. Die Antiterroreinheit gewinnt."
+		"de"		"{1} Es waren {2} Sekunden übrig bis zur Explosion. Die Antiterroreinheit gewinnt."
 	}
 }
