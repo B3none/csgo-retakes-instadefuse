@@ -2,7 +2,7 @@
 {
 	"InstaDefuseUnsuccessful"
 	{
-		"#format"	"{1:s},{2:1f}"
+		"#format"	"{1:s},{2:1.f}"
 		"en"		"{1} There were {2} seconds left of the bomb. Terrorists win."
 	}
 
@@ -20,7 +20,7 @@
 
 	"InstaDefuseSuccessful"
 	{
-		"#format"	"{1:s},{2:1f}"
+		"#format"	"{1:s},{2:1.f}"
 		"en"		"{1} There were {2} seconds left of the bomb. CT win."
 	}
 }
