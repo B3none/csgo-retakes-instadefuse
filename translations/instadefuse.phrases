@@ -1,0 +1,8 @@
+"Phrases"
+{
+	"InstaDefuseUnsuccessful"
+	{
+		"#format"	"{1:s},{2:1f}"
+		"en"		"{1} There were {2} seconds left of the bomb. Terrorists Win."
+	}
+}
