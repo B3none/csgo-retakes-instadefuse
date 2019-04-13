@@ -1,0 +1,26 @@
+"Phrases"
+{
+    "InstaDefuseUnsuccessful"
+    {
+        "#format"    "{1:s},{2:.1f}"
+        "da"        "{1} Der var {2} sekunder tilbage på bomben. Terroristerne vinder."
+    }
+
+    "LiveNadeSomewhere"
+    {
+        "#format"    "{1:s}"
+        "da"        "{1} Der er en granat i nærheden. Held og lykke med at defuse!"
+    }
+
+    "MolotovTooClose"
+    {
+        "#format"    "{1:s}"
+        "da"        "{1} Der er en molotov tæt på bomben. Held og lykke med at defuse!"
+    }
+
+    "InstaDefuseSuccessful"
+    {
+        "#format"    "{1:s},{2:.1f}"
+        "da"        "{1} Der var {2} sekunder tilbage på bomben. CT vinder."
+    }
+}
