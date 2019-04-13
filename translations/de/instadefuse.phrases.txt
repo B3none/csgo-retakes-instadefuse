@@ -21,6 +21,6 @@
 	"InstaDefuseSuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"en"		"{1} {2} sekunden blieben auf der Bombe. CT gewinnen."
+		"en"		"{1} {2} sekunden blieben auf der Bombe. CTs gewinnen."
 	}
 }
