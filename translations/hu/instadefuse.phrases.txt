@@ -1,0 +1,26 @@
+"Phrases"
+{
+    "InstaDefuseUnsuccessful"
+    {
+        "#format"	"{1:s},{2:.1f}"
+        "hu"		"{1} {2} Másodperc volt hátra a bomba robbanásáig, a terroristák nyertek!"
+    }
+    
+    "LiveNadeSomewhere"
+    {
+        "#format"    "{1:s}"
+        "hu"        "{1} Egy gránát van közel a bombához. Sok sikert a hatástalanításhoz!"
+    }
+    
+    "MolotovTooClose"
+    {
+        "#format"    "{1:s}"
+        "hu"        "{1} Egy molotov túl közel van a bombához! Sok sikert a hatástalanításhoz!"
+    }
+    
+    "InstaDefuseSuccessful"
+    {
+        "#format"    "{1:s},{2:.1f}"
+        "hu"        "{1} {2} Másodperc volt hátra a bomba robbanásáig, a CT-k nyertek!"
+    }
+}
