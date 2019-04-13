@@ -1,11 +1,11 @@
 "Phrases"
 {
-    "InstaDefuseUnsuccessful"
+	  "InstaDefuseUnsuccessful"
     {
-        "#format"    "{1:s},{2:.1f}"
-        "en"        "{1} There were {2} seconds left of the bomb. Terrorists win."
-    }
-
+		    "#format"	"{1:s},{2:.1f}"
+		    "en"		"{1} There were {2} seconds left of the bomb. Terrorists win."
+	  }
+  
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
@@ -18,7 +18,7 @@
         "en"        "{1} There is a molotov too close to bomb. Good luck defusing!"
         "da"        "{1} Der er en molotov tæt på bomben. Held og lykke med at defuse!"
     }
-
+    
     "InstaDefuseSuccessful"
     {
         "#format"    "{1:s},{2:.1f}"
