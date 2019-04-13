@@ -3,24 +3,24 @@
 	"InstaDefuseUnsuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"en"		"{1} {2} sekunden blieben auf der Bombe. Terrorists gewinnen."
+		"de"		"Es waren {1} {2} Sekunden übrig bis zur Explosion. Die Terroristen gewinnen."
 	}
 
 	"LiveNadeSomewhere"
 	{
 		"#format"	"{1:s}"
-		"en"		"{1} Ein Granate ist zu nah an der Bombe. Viel Glück defusing!"
+		"de"		"{1} Ein gezündete Granate ist unterwegs. Viel Glück mit dem Entschärfen!"
 	}
 
 	"MolotovTooClose"
 	{
 		"#format"	"{1:s}"
-		"en"		"{1} Ein Molotov ist zu nah an der Bombe. Viel Glück defusing!"
+		"de"		"{1} Ein Molotov ist nahe der Bombe. Viel Glück mit dem Entschärfen!"
 	}
 
 	"InstaDefuseSuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"en"		"{1} {2} sekunden blieben auf der Bombe. CTs gewinnen."
+		"de"		"Es waren {1} {2} Sekunden übrig bis zur Explosion. Die Antiterroreinheit gewinnt."
 	}
 }
