@@ -3,24 +3,24 @@
 	"InstaDefuseUnsuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"en"		"{1} Er waren nog {2} seconden over op de bomb. De terroristen winnen."
+		"nl"		"{1} Er waren nog {2} seconden over op de bomb. De terroristen winnen."
 	}
 
 	"LiveNadeSomewhere"
 	{
 		"#format"	"{1:s}"
-		"en"		"{1} Er is er een granaat in de buurt. Success met defusen."
+		"nl"		"{1} Er is er een granaat in de buurt. Success met defusen."
 	}
 
 	"MolotovTooClose"
 	{
 		"#format"	"{1:s}"
-		"en"		"{1} Een molotov-granaat is dicht bij de bomb. Success met defusen."
+		"nl"		"{1} Een molotov-granaat is dicht bij de bomb. Success met defusen."
 	}
 
 	"InstaDefuseSuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"en"		"{1} Er waren nog {2} seconden over op de bomb. CTs winnen."
+		"nl"		"{1} Er waren nog {2} seconden over op de bomb. CTs winnen."
 	}
 }

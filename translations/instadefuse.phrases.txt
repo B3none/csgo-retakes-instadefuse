@@ -16,7 +16,6 @@
     {
         "#format"    "{1:s}"
         "en"        "{1} There is a molotov close to the bomb. Good luck defusing!"
-        "da"        "{1} Der er en molotov tæt på bomben. Held og lykke med at defuse!"
     }
     
     "InstaDefuseSuccessful"
