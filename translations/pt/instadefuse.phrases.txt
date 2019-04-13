@@ -1,0 +1,26 @@
+"Phrases"
+{
+    "InstaDefuseUnsuccessful"
+    {
+        "#format"	"{1:s},{2:.1f}"
+        "pt"		"{1} Haviam {2} segundos até a bomba explodir. Os T's ganharam a ronda."
+    }
+    
+    "LiveNadeSomewhere"
+    {
+        "#format"    "{1:s}"
+        "pt"        "{1} Existe uma nade ativa em algum lado. Boa Sorte a defusar!"
+    }
+    
+    "MolotovTooClose"
+    {
+        "#format"    "{1:s}"
+        "pt"        "{1} Existe uma molotov ativa em algum lado. Boa sorte a defusar!"
+    }
+    
+    "InstaDefuseSuccessful"
+    {
+        "#format"    "{1:s},{2:.1f}"
+        "pt"        "{1} Havia {2} segundos até a bomba explodi. Os CT's ganharam a ronda."
+    }
+}
