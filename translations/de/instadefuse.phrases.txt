@@ -1,0 +1,26 @@
+"Phrases"
+{
+	"InstaDefuseUnsuccessful"
+	{
+		"#format"	"{1:s},{2:.1f}"
+		"en"		"{1} {2} sekunden blieben auf der Bombe. Terrorists gewinnen."
+	}
+
+	"LiveNadeSomewhere"
+	{
+		"#format"	"{1:s}"
+		"en"		"{1} Ein Granate ist zu nah an der Bombe. Viel Glück defusing!"
+	}
+
+	"MolotovTooClose"
+	{
+		"#format"	"{1:s}"
+		"en"		"{1} Ein Molotov ist zu nah an der Bombe. Viel Glück defusing!"
+	}
+
+	"InstaDefuseSuccessful"
+	{
+		"#format"	"{1:s},{2:.1f}"
+		"en"		"{1} {2} sekunden blieben auf der Bombe. CT gewinnen."
+	}
+}
