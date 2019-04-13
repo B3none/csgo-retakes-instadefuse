@@ -1,17 +1,17 @@
 "Phrases"
 {
-	  "InstaDefuseUnsuccessful"
+    "InstaDefuseUnsuccessful"
     {
-		    "#format"	"{1:s},{2:.1f}"
-		    "en"		"{1} There were {2} seconds left of the bomb. Terrorists win."
-	  }
-  
+        "#format"	"{1:s},{2:.1f}"
+        "en"		"{1} There were {2} seconds left of the bomb. Terrorists win."
+    }
+    
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
         "en"        "{1} There is a live nade somewhere. Good luck defusing!"
     }
-
+    
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
