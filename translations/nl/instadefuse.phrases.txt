@@ -3,7 +3,7 @@
 	"InstaDefuseUnsuccessful"
 	{
 		"#format"	"{1:s},{2:.1f}"
-		"nl"		"{1} Er waren nog {2} seconden over op de bomb. De terroristen winnen."
+		"nl"		"{1} Er waren nog {2} seconden over op de bomb. Ts winnen."
 	}
 
 	"LiveNadeSomewhere"
