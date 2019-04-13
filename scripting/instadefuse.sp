@@ -214,13 +214,10 @@ public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool d
    
     int ent = 0;
    
-    if (StrContains(name, "detonate") != -1)
+    if (StrContains(name, "detonate") != -1 && defuser != 0)
     {
         ent = GetEventInt(event, "entityid");
-    }
-    
-    if (defuser != 0)
-    {
+        
         AttemptInstantDefuse(defuser, ent);
     }
 }
