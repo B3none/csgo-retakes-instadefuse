@@ -23,12 +23,14 @@ public Plugin myinfo = {
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.2.0",
+    version = "1.3.0",
     url = "https://github.com/b3none"
 }
 
 public void OnPluginStart()
 {
+    LoadTranslations("instadefuse.phrases");
+
     HookEvent("bomb_begindefuse", Event_BombBeginDefuse, EventHookMode_Post);
     HookEvent("bomb_planted", Event_BombPlanted, EventHookMode_Pre);
     HookEvent("molotov_detonate", Event_MolotovDetonate);
@@ -128,7 +130,16 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 			return;
 		}
 		
-		PrintToChatAll("%s There was %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
+		for (int i = 0; i <= MaxClients; i++)
+    	{
+    		if (IsValidClient(i))
+    		{
+	    		PrintToChat(i, "%T", "InstaDefuseUnsuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
+    		}
+    	}
+		
+		// PrintToChatAll("%s There were %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
+		
 		g_bAlreadyComplete = true;
 		
 		// Force Terrorist win because they do not have enough time to defuse the bomb.
@@ -146,13 +157,31 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	{
 	    if (ent != exemptNade)
 	    {
-	        PrintToChatAll("%s There is a live nade somewhere, Good luck defusing!", MESSAGE_PREFIX);
+	    	// PrintToChatAll("%s There is a live nade somewhere, Good luck defusing!", MESSAGE_PREFIX);
+	    	
+	    	for (int i = 0; i <= MaxClients; i++)
+	    	{
+	    		if (IsValidClient(i))
+	    		{
+		    		PrintToChat(i, "%T", "LiveNadeSomewhere", i, MESSAGE_PREFIX);
+	    		}
+	    	}
+	    	
 	        return;
 	    }
 	}  
 	else if (hTimer_MolotovThreatEnd != null)
 	{
-	    PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
+	    // PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
+	    
+	    for (int i = 0; i <= MaxClients; i++)
+    	{
+    		if (IsValidClient(i))
+    		{
+	    		PrintToChat(i, "%T", "MolotovTooClose", i, MESSAGE_PREFIX);
+    		}
+    	}
+	    
 	    return;
 	}
 	
@@ -161,7 +190,16 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 		return;
 	}
 	
-	PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
+	// PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
+	
+	for (int i = 0; i <= MaxClients; i++)
+	{
+		if (IsValidClient(i))
+		{
+    		PrintToChat(i, "%T", "InstaDefuseSuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
+		}
+	}
+	
 	g_bAlreadyComplete = true;
 	
 	IncrementTeamScore(CS_TEAM_CT);
