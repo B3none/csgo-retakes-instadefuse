@@ -9,7 +9,7 @@
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "en"        "{1} There is a live nade somewhere. Good luck defusing!"
+        "en"        "{1} There is an active grenade somewhere. Good luck defusing!"
     }
     
     "MolotovTooClose"
