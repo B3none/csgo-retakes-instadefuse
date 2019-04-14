@@ -138,8 +138,6 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
     		}
     	}
 		
-		// PrintToChatAll("%s There were %.1f seconds left of the bomb. T Win.", MESSAGE_PREFIX, c4TimeLeft);
-		
 		g_bAlreadyComplete = true;
 		
 		// Force Terrorist win because they do not have enough time to defuse the bomb.
@@ -157,8 +155,6 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	{
 	    if (ent != exemptNade)
 	    {
-	    	// PrintToChatAll("%s There is a live nade somewhere, Good luck defusing!", MESSAGE_PREFIX);
-	    	
 	    	for (int i = 0; i <= MaxClients; i++)
 	    	{
 	    		if (IsValidClient(i))
@@ -172,8 +168,6 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	}  
 	else if (hTimer_MolotovThreatEnd != null)
 	{
-	    // PrintToChatAll("%s Molotov too close to bomb, Good luck defusing!", MESSAGE_PREFIX);
-	    
 	    for (int i = 0; i <= MaxClients; i++)
     	{
     		if (IsValidClient(i))
@@ -190,13 +184,11 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 		return;
 	}
 	
-	// PrintToChatAll("%s There was %.1f seconds left of the bomb. CT Win.", MESSAGE_PREFIX, c4TimeLeft);
-	
 	for (int i = 0; i <= MaxClients; i++)
 	{
 		if (IsValidClient(i))
 		{
-    		PrintToChat(i, "%T", "InstaDefuseSuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
+    			PrintToChat(i, "%T", "InstaDefuseSuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
 		}
 	}
 	
