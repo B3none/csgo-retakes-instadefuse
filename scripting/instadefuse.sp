@@ -19,7 +19,8 @@ float g_c4PlantTime = 0.0;
 bool g_bAlreadyComplete = false;
 bool g_bWouldMakeIt = false;
  
-public Plugin myinfo = {
+public Plugin myinfo =
+{
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
