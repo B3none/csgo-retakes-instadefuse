@@ -24,7 +24,7 @@ public Plugin myinfo =
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.3.0",
+    version = "1.3.1",
     url = "https://github.com/b3none"
 }
 
@@ -142,7 +142,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 		g_bAlreadyComplete = true;
 		
 		// Force Terrorist win because they do not have enough time to defuse the bomb.
-		CS_TerminateRound(1.0, CSRoundEnd_TargetBombed);
+		EndRound(CS_TEAM_T);
 		
 		return;
 	}
@@ -195,8 +195,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	
 	g_bAlreadyComplete = true;
 	
-	IncrementTeamScore(CS_TEAM_CT);
-	CS_TerminateRound(1.0, CSRoundEnd_BombDefused, false);
+	EndRound(CS_TEAM_CT);
 	
 	OnInstantDefusePost(client, c4);
 }
@@ -268,10 +267,36 @@ void OnInstantDefusePost(int client, int c4)
 	Call_Finish();
 }
 
-void IncrementTeamScore(int team)
+void EndRound(int team, bool waitFrame = true)
 {
-	int teamScore = CS_GetTeamScore(team) + 1;
-	CS_SetTeamScore(team, teamScore);
+    if (waitFrame)
+    {
+        RequestFrame(Frame_EndRound, team);
+    }
+    else
+    {
+        Frame_EndRound(team);
+    }
+}
+
+void Frame_EndRound(int team)
+{
+    int RoundEndEntity = CreateEntityByName("game_round_end");
+    
+    DispatchSpawn(RoundEndEntity);
+    
+    SetVariantFloat(1.0);
+    
+    if(team == CS_TEAM_CT)
+    {
+        AcceptEntityInput(RoundEndEntity, "EndRound_CounterTerroristsWin");
+    }
+    else if(team == CS_TEAM_T)
+    {
+        AcceptEntityInput(RoundEndEntity, "EndRound_TerroristsWin");
+    }
+    
+    AcceptEntityInput(RoundEndEntity, "Kill");
 }
  
 stock int GetDefusingPlayer()
