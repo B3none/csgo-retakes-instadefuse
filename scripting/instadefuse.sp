@@ -61,8 +61,7 @@ public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadca
 	
 	if (hTimer_MolotovThreatEnd != null)
 	{
-		CloseHandle(hTimer_MolotovThreatEnd);
-		hTimer_MolotovThreatEnd = null;
+		delete hTimer_MolotovThreatEnd;
 	}
 }
 
@@ -97,31 +96,26 @@ public void Event_BombBeginDefusePlusFrame(int userId)
 
 void AttemptInstantDefuse(int client, int exemptNade = 0)
 {
-	if (g_bAlreadyComplete)
+	if (g_bAlreadyComplete || !GetEntProp(client, Prop_Send, "m_bIsDefusing") || HasAlivePlayer(CS_TEAM_T))
 	{
 		return;
-	}
-	
-	if (!GetEntProp(client, Prop_Send, "m_bIsDefusing"))
-	{
-	    return;
 	}
 	
 	int StartEnt = MaxClients + 1;
 	
 	int c4 = FindEntityByClassname(StartEnt, "planted_c4");
 	
-	if (c4 == -1 || HasAlivePlayer(CS_TEAM_T))
+	if (c4 == -1)
 	{
 	    return;
 	}
 	
-	bool HasKit = GetPlayerWeaponSlot(client, 4) != 0;
+	bool hasKit = GetPlayerWeaponSlot(client, 4) != 0;
 	float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
 	
 	if (!g_bWouldMakeIt)
 	{
-		g_bWouldMakeIt = (c4TimeLeft >= 10.0 && !HasKit) || (c4TimeLeft >= 5.0 && HasKit);
+		g_bWouldMakeIt = (c4TimeLeft >= 10.0 && !hasKit) || (c4TimeLeft >= 5.0 && hasKit);
 	}
 	
 	if (GetConVarInt(hEndIfTooLate) == 1 && !g_bWouldMakeIt)
@@ -189,7 +183,7 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	{
 		if (IsValidClient(i))
 		{
-    			PrintToChat(i, "%T", "InstaDefuseSuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
+			PrintToChat(i, "%T", "InstaDefuseSuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
 		}
 	}
 	
@@ -238,8 +232,7 @@ public Action Event_MolotovDetonate(Handle event, const char[] name, bool dontBr
  
     if (hTimer_MolotovThreatEnd != null)
     {
-        CloseHandle(hTimer_MolotovThreatEnd);
-        hTimer_MolotovThreatEnd = null;
+        delete hTimer_MolotovThreatEnd;
     }
    
     hTimer_MolotovThreatEnd = CreateTimer(GetConVarFloat(hInfernoDuration), Timer_MolotovThreatEnd, _, TIMER_FLAG_NO_MAPCHANGE);
@@ -272,11 +265,11 @@ void EndRound(int team, bool waitFrame = true)
     if (waitFrame)
     {
         RequestFrame(Frame_EndRound, team);
+        
+        return;
     }
-    else
-    {
-        Frame_EndRound(team);
-    }
+    
+    Frame_EndRound(team);
 }
 
 void Frame_EndRound(int team)
@@ -287,11 +280,11 @@ void Frame_EndRound(int team)
     
     SetVariantFloat(1.0);
     
-    if(team == CS_TEAM_CT)
+    if (team == CS_TEAM_CT)
     {
         AcceptEntityInput(RoundEndEntity, "EndRound_CounterTerroristsWin");
     }
-    else if(team == CS_TEAM_T)
+    else if (team == CS_TEAM_T)
     {
         AcceptEntityInput(RoundEndEntity, "EndRound_TerroristsWin");
     }
