@@ -9,7 +9,7 @@ Add the latest compiled version of the `retakes-instadefuse.smx` into your `addo
 The latest version is listed on the [releases tab](https://github.com/b3none/retakes-instadefuse/releases)
 
 # Author
-Alex Blackham - Developer and Maintainer - [B3none](https://github.com/b3none/)
+Alex Blackham - Developer and Maintainer - [B3none](https://b3none.co.uk/)
 
 ## Watch for releases
 
