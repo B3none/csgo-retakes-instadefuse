@@ -11,6 +11,7 @@ Handle hEndIfTooLate = null;
 Handle hDefuseIfTime = null;
 Handle hInfernoDuration = null;
 Handle hTimer_MolotovThreatEnd = null;
+ConVar hMaxrounds = null;
 
 Handle fw_OnInstantDefusePre = null;
 Handle fw_OnInstantDefusePost = null;
@@ -24,7 +25,7 @@ public Plugin myinfo =
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.3.2",
+    version = "1.4.0",
     url = "https://github.com/b3none"
 }
 
@@ -39,10 +40,12 @@ public void OnPluginStart()
     
     HookEvent("player_death", Event_AttemptInstantDefuse, EventHookMode_PostNoCopy);
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
+    HookEvent("round_end", Event_RoundEnd, EventHookMode_PostNoCopy);
     
     hInfernoDuration = CreateConVar("instant_defuse_inferno_duration", "7.0", "If Valve ever changed the duration of molotov, this cvar should change with it.");
     hEndIfTooLate = CreateConVar("instant_defuse_end_if_too_late", "1.0", "End the round if too late.", _, true, 0.0, true, 1.0);
     hDefuseIfTime = CreateConVar("instant_defuse_if_time", "1.0", "Instant defuse if there is time to do so.", _, true, 0.0, true, 1.0);
+    hMaxrounds = FindConVar("mp_maxrounds");
     
     // Added the forwards to allow other plugins to call this one.
     fw_OnInstantDefusePre = CreateGlobalForward("InstantDefuse_OnInstantDefusePre", ET_Event, Param_Cell, Param_Cell);
@@ -63,6 +66,14 @@ public Action Event_RoundStart(Handle event, const char[] name, bool dontBroadca
 	{
 		delete hTimer_MolotovThreatEnd;
 	}
+}
+
+public Action Event_RoundEnd(Handle event, const char[] name, bool dontBroadcast)
+{
+	if ((CS_GetTeamScore(CS_TEAM_T) + CS_GetTeamScore(CS_TEAM_CT)) >= hMaxrounds.IntValue)
+    {
+    	ForceEnd();
+    }
 }
 
 public Action Event_BombPlanted(Handle event, const char[] name, bool dontBroadcast)
@@ -290,6 +301,13 @@ void Frame_EndRound(int team)
     }
     
     AcceptEntityInput(RoundEndEntity, "Kill");
+}
+
+void ForceEnd()
+{
+	int gameEndEntity = CreateEntityByName("game_end");
+	
+	AcceptEntityInput(gameEndEntity, "EndGame");
 }
  
 stock int GetDefusingPlayer()
