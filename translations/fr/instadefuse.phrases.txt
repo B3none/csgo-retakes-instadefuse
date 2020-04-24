@@ -1,0 +1,26 @@
+"Phrases"
+{
+    "InstaDefuseUnsuccessful"
+    {
+        "#format"	"{1:s},{2:.1f}"
+        "fr"		"{1} Il restait {2} secondes avant l'explosion. Les terroristes gagnent."
+    }
+
+    "LiveNadeSomewhere"
+    {
+        "#format"    "{1:s}"
+        "fr"        "{1} Il y a une grenade dégoupillée quelque-part. Bonne chance pour désamorcer!"
+    }
+
+    "MolotovTooClose"
+    {
+        "#format"    "{1:s}"
+        "fr"        "{1} Il y a du feu proche de la bombe. Bonne chance pour désamorcer!"
+    }
+
+    "InstaDefuseSuccessful"
+    {
+        "#format"    "{1:s},{2:.1f}"
+        "fr"        "{1} Il restait {2} secondes avant l'explosion. Les CT gagnents."
+    }
+}
