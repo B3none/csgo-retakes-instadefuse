@@ -23,4 +23,10 @@
         "#format"    "{1:s},{2:.1f}"
         "hu"        "{1} {2} Másodperc volt hátra a bomba robbanásáig, a CT-k nyertek!"
     }
+
+    "SomeoneAliveHaveKit"
+    {
+        "#format"    "{1:s}"
+        "hu"        "{1} Nincs idő a hatástalanításra Defuse Kit nélkül!"
+    }
 }

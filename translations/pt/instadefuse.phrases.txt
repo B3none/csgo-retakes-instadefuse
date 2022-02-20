@@ -23,4 +23,10 @@
         "#format"    "{1:s},{2:.1f}"
         "pt"        "{1} Havia {2} segundos até a bomba explodi. Os CT's ganharam a ronda."
     }
+
+    "SomeoneAliveHaveKit"
+    {
+        "#format"    "{1:s}"
+        "pt"        "{1} Não há tempo para desarmar sem um kit de desarme!"
+    }
 }

@@ -23,4 +23,10 @@
         "#format"    "{1:s},{2:.1f}"
         "fr"        "{1} Il restait {2} secondes avant l'explosion. Les CT gagnents."
     }
+
+    "SomeoneAliveHaveKit"
+    {
+        "#format"    "{1:s}"
+        "fr"        "{1} Il n'y a pas de temps pour désamorcer sans un kit de désamorçage !"
+    }
 }

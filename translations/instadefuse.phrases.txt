@@ -23,4 +23,10 @@
         "#format"    "{1:s},{2:.1f}"
         "en"        "{1} There were {2} seconds left of the bomb. Counter Terrorists win."
     }
+	
+    "SomeoneAliveHaveKit"
+    {
+        "#format"    "{1:s}"
+        "en"        "{1} There's no time to defuse without a Defuse Kit!"
+    }
 }
