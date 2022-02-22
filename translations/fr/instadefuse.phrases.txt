@@ -24,9 +24,9 @@
         "fr"        "{1} Il restait {2} secondes avant l'explosion. Les CT gagnents."
     }
 
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "fr"        "{1} Il n'y a pas de temps pour désamorcer sans un kit de désamorçage !"
+        "fr"        "{1} Vous n'avez pas le temps ! Votre coéquipier a un kit de désamorçage !"
     }
 }

@@ -24,9 +24,9 @@
         "en"        "{1} There were {2} seconds left of the bomb. Counter Terrorists win."
     }
 	
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "en"        "{1} There's no time to defuse without a Defuse Kit!"
+        "en"        "{1} You have no time! Your teammate has a Defuse Kit!"
     }
 }

@@ -24,9 +24,9 @@
         "pt"        "{1} Havia {2} segundos até a bomba explodi. Os CT's ganharam a ronda."
     }
 
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "pt"        "{1} Não há tempo para desarmar sem um kit de desarme!"
+        "pt"        "{1} Você não tem tempo! Seu companheiro de equipe tem um kit de desarme!"
     }
 }

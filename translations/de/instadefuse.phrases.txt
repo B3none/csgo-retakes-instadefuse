@@ -24,9 +24,9 @@
 		"de"		"{1} Es waren {2} Sekunden übrig bis zur Explosion. Die Antiterroreinheit gewinnt."
 	}
 
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "de"        "{1} Ohne ein Entschärfungskit bleibt keine Zeit zum Entschärfen!"
+        "de"        "{1} Du hast keine Zeit! Dein Teamkollege hat ein Entschärfungskit!"
     }
 }

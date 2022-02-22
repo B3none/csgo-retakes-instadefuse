@@ -24,9 +24,9 @@
         "da"        "{1} Der var {2} sekunder tilbage på bomben. CT vinder."
     }
 
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "da"        "{1} Der er ikke tid til at defuse uden et Defuse Kit!"
+        "da"        "{1} Du har ikke tid! Din holdkammerat har et Defuse Kit!"
     }
 }

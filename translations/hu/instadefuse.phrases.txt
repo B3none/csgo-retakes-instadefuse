@@ -24,9 +24,9 @@
         "hu"        "{1} {2} Másodperc volt hátra a bomba robbanásáig, a CT-k nyertek!"
     }
 
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "hu"        "{1} Nincs idő a hatástalanításra Defuse Kit nélkül!"
+        "hu"        "{1} Nincs időd! Csapattársának van Defuse Kitje!"
     }
 }

@@ -24,9 +24,9 @@
         "no"        "{1} Det var {2} sekund igjen av bomben, CT vinner!"
     }
 
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "no"        "{1} Det er ingen tid å uskadeliggjøre uten et defusesett!"
+        "no"        "{1} Du har ikke tid! Lagkameraten din har et Defuse Kit!"
     }
 }

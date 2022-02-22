@@ -24,9 +24,9 @@
         "chi"        "{1} 距离炸弹爆炸还有 {2} 秒, 反恐精英胜利"
     }
 
-    "SomeoneAliveHaveKit"
+    "TeammateHasDefuseKit"
     {
         "#format"    "{1:s}"
-        "chi"        "{1} 没有 化纤套件 就没有时间进行化解！"
+        "chi"        "{1} 你没有时间！你的队友有一个化解套件！"
     }
 }
