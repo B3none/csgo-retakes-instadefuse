@@ -21,7 +21,7 @@
     "InstaDefuseSuccessful"
     {
         "#format"    "{1:s},{2:N},{3:.2f}"
-        "fr"        "{1} {2} Il restait {3} secondes avant l'explosion. Les CT gagnents."
+        "fr"        "{1} {2} désamorcé avec {3} secondes restantes!"
     }
 
     "TeammateHasDefuseKit"
