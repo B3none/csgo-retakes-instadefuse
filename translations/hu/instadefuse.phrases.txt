@@ -9,13 +9,13 @@
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "hu"        "{1} Egy gránát van közel a bombához. Sok sikert a hatástalanításhoz!"
+        "hu"        "{1} Egy gránát van közel a bombához."
     }
     
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
-        "hu"        "{1} Egy molotov túl közel van a bombához! Sok sikert a hatástalanításhoz!"
+        "hu"        "{1} Egy molotov túl közel van a bombához!"
     }
     
     "InstaDefuseSuccessful"
