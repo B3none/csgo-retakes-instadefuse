@@ -2,7 +2,7 @@
 {
     "InstaDefuseUnsuccessful"
     {
-        "#format"	"{1:s},{2:s},{3:.2f}"
+        "#format"	"{1:s},{2:N},{3:.2f}"
         "en"		"{1} {2} was {3}s away from defusing."
     }
     
@@ -20,7 +20,7 @@
     
     "InstaDefuseSuccessful"
     {
-        "#format"    "{1:s},{2:s},{3:.2f}"
+        "#format"    "{1:s},{2:N},{3:.2f}"
         "en"        "{1} {2} defused with {3}s remaining!"
     }
 	
