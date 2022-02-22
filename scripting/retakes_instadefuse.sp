@@ -24,7 +24,7 @@ public Plugin myinfo =
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.4.0",
+    version = "1.5.0",
     url = "https://github.com/b3none"
 }
 
@@ -116,6 +116,24 @@ void AttemptInstantDefuse(int client, int exemptNade = 0)
 	if (!g_bWouldMakeIt)
 	{
 		g_bWouldMakeIt = (c4TimeLeft >= 10.0 && !hasDefuseKit) || (c4TimeLeft >= 5.0 && hasDefuseKit);
+	}
+
+	if (!g_bWouldMakeIt && (5.0 <= c4TimeLeft <= 10.0))
+	{
+		for (int i = 0; i <= MaxClients; i++)
+		{
+			if (IsValidClient(i) && IsPlayerAlive(i) && HasDefuseKit(i))
+			{
+				for (int j = 0; j <= MaxClients; j++)
+				{
+					if (IsValidClient(j))
+					{
+						PrintToChat(j, "%T", "TeammateHasDefuseKit", j, MESSAGE_PREFIX);
+					}
+				}
+				return;
+			}
+		}
 	}
 
 	if (GetConVarInt(hEndIfTooLate) == 1 && !g_bWouldMakeIt)

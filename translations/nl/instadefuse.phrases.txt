@@ -23,4 +23,10 @@
 		"#format"	"{1:s},{2:.1f}"
 		"nl"		"{1} Er waren nog {2} seconden over op de bomb. CTs winnen."
 	}
+
+    "TeammateHasDefuseKit"
+    {
+        "#format"    "{1:s}"
+        "nl"        "{1} Je hebt geen tijd! Je teamgenoot heeft een Defuse Kit!"
+    }
 }

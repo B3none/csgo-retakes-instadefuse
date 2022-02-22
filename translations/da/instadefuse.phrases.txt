@@ -23,4 +23,10 @@
         "#format"    "{1:s},{2:.1f}"
         "da"        "{1} Der var {2} sekunder tilbage på bomben. CT vinder."
     }
+
+    "TeammateHasDefuseKit"
+    {
+        "#format"    "{1:s}"
+        "da"        "{1} Du har ikke tid! Din holdkammerat har et Defuse Kit!"
+    }
 }

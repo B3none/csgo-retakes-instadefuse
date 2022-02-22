@@ -23,4 +23,10 @@
         "#format"    "{1:s},{2:.1f}"
         "pt"        "{1} Havia {2} segundos até a bomba explodi. Os CT's ganharam a ronda."
     }
+
+    "TeammateHasDefuseKit"
+    {
+        "#format"    "{1:s}"
+        "pt"        "{1} Você não tem tempo! Seu companheiro de equipe tem um kit de desarme!"
+    }
 }
