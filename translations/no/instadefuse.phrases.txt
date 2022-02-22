@@ -21,7 +21,7 @@
     "InstaDefuseSuccessful"
     {
         "#format"    "{1:s},{2:N},{3:.2f}"
-        "no"        "{1} {2} Det var {3} sekund igjen av bomben, CT vinner!"
+        "no"        "{1} {2} uskadeliggjort med {3} sekunder igjen!"
     }
 
     "TeammateHasDefuseKit"
