@@ -21,7 +21,7 @@
     "InstaDefuseSuccessful"
     {
         "#format"    "{1:s},{2:N},{3:.2f}"
-        "hu"        "{1} {2} {3} Másodperc volt hátra a bomba robbanásáig, a CT-k nyertek!"
+        "hu"        "{1} {2} hatástalanított, {3} másodperc van hátra!"
     }
 
     "TeammateHasDefuseKit"
