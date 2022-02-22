@@ -2,8 +2,8 @@
 {
     "InstaDefuseUnsuccessful"
     {
-        "#format"    "{1:s},{2:.1f}"
-        "da"        "{1} Der var {2} sekunder tilbage på bomben. Terroristerne vinder."
+        "#format"    "{1:s},{2:N},{3:.2f}"
+        "da"        "{1} {2} Der var {3} sekunder tilbage på bomben. Terroristerne vinder."
     }
 
     "LiveNadeSomewhere"
@@ -20,8 +20,8 @@
 
     "InstaDefuseSuccessful"
     {
-        "#format"    "{1:s},{2:.1f}"
-        "da"        "{1} Der var {2} sekunder tilbage på bomben. CT vinder."
+        "#format"    "{1:s},{2:N},{3:.2f}"
+        "da"        "{1} {2} Der var {3} sekunder tilbage på bomben. CT vinder."
     }
 
     "TeammateHasDefuseKit"
