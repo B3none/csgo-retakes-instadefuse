@@ -9,13 +9,13 @@
 	"LiveNadeSomewhere"
 	{
 		"#format"	"{1:s}"
-		"de"		"{1} Ein gezündete Granate ist unterwegs. Viel Glück mit dem Entschärfen!"
+		"de"		"{1} Ein gezündete Granate ist unterwegs."
 	}
 
 	"MolotovTooClose"
 	{
 		"#format"	"{1:s}"
-		"de"		"{1} Ein Molotov ist nahe der Bombe. Viel Glück mit dem Entschärfen!"
+		"de"		"{1} Ein Molotov ist nahe der Bombe."
 	}
 
 	"InstaDefuseSuccessful"
