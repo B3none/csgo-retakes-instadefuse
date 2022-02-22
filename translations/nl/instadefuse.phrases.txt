@@ -21,7 +21,7 @@
 	"InstaDefuseSuccessful"
 	{
 		"#format"	"{1:s},{2:N},{3:.2f}"
-		"nl"		"{1} {2} Er waren nog {3} seconden over op de bomb. CTs winnen."
+		"nl"		"{1} {2} onschadelijk gemaakt met nog {3} seconden over!"
 	}
 
 	"TeammateHasDefuseKit"
