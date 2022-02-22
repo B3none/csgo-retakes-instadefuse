@@ -9,13 +9,13 @@
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "fr"        "{1} Il y a une grenade dégoupillée quelque-part. Bonne chance pour désamorcer!"
+        "fr"        "{1} Il y a une grenade dégoupillée quelque-part."
     }
 
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
-        "fr"        "{1} Il y a du feu proche de la bombe. Bonne chance pour désamorcer!"
+        "fr"        "{1} Il y a du feu proche de la bombe."
     }
 
     "InstaDefuseSuccessful"
