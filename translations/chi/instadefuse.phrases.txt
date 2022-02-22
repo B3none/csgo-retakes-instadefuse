@@ -3,7 +3,7 @@
     "InstaDefuseUnsuccessful"
     {
         "#format"	"{1:s},{2:N},{3:.2f}"
-        "chi"		"{1} {2} 距离炸弹爆炸仅剩 {3} 秒, 恐怖分子胜利"
+        "chi"		"{1} {2} 距离化解还有 {3}"
     }
     
     "LiveNadeSomewhere"
