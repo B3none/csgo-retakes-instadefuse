@@ -86,17 +86,17 @@ public void Event_BombBeginDefusePlusFrame(int userId)
 {
 	g_bWouldMakeIt = false;
 
-	int defuser = GetClientOfUserId(userId);
+	int client = GetClientOfUserId(userId);
 
-	if (IsValidClient(defuser))
+	if (IsValidClient(client))
     {
-    	AttemptInstantDefuse(defuser);
+    	AttemptInstantDefuse(client);
     }
 }
 
-void AttemptInstantDefuse(int defuser, int exemptNade = 0)
+void AttemptInstantDefuse(int client, int exemptNade = 0)
 {
-	if (g_bAlreadyComplete || !GetEntProp(defuser, Prop_Send, "m_bIsDefusing") || HasAlivePlayer(CS_TEAM_T))
+	if (g_bAlreadyComplete || !GetEntProp(client, Prop_Send, "m_bIsDefusing") || HasAlivePlayer(CS_TEAM_T))
 	{
 		return;
 	}
@@ -110,7 +110,7 @@ void AttemptInstantDefuse(int defuser, int exemptNade = 0)
 	    return;
 	}
 
-	bool hasDefuseKit = HasDefuseKit(defuser);
+	bool hasDefuseKit = HasDefuseKit(client);
 	float c4TimeLeft = GetConVarFloat(FindConVar("mp_c4timer")) - (GetGameTime() - g_c4PlantTime);
 
 	if (!g_bWouldMakeIt)
@@ -138,7 +138,7 @@ void AttemptInstantDefuse(int defuser, int exemptNade = 0)
 
 	if (GetConVarInt(hEndIfTooLate) == 1 && !g_bWouldMakeIt)
 	{
-		if (!OnInstandDefusePre(defuser, c4))
+		if (!OnInstandDefusePre(client, c4))
 		{
 			return;
 		}
@@ -147,7 +147,7 @@ void AttemptInstantDefuse(int defuser, int exemptNade = 0)
     	{
     		if (IsValidClient(i))
     		{
-	    		PrintToChat(i, "%T", "InstaDefuseUnsuccessful", i, MESSAGE_PREFIX, defuser, c4TimeLeft);
+	    		PrintToChat(i, "%T", "InstaDefuseUnsuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
     		}
     	}
 
@@ -158,7 +158,7 @@ void AttemptInstantDefuse(int defuser, int exemptNade = 0)
 
 		return;
 	}
-	else if (GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(defuser) && !FL_ONGROUND)
+	else if (GetConVarInt(hDefuseIfTime) != 1 || GetEntityFlags(client) && !FL_ONGROUND)
 	{
 		return;
 	}
@@ -192,7 +192,7 @@ void AttemptInstantDefuse(int defuser, int exemptNade = 0)
 	    return;
 	}
 
-	if (!OnInstandDefusePre(defuser, c4))
+	if (!OnInstandDefusePre(client, c4))
 	{
 		return;
 	}
@@ -201,7 +201,7 @@ void AttemptInstantDefuse(int defuser, int exemptNade = 0)
 	{
 		if (IsValidClient(i))
 		{
-			PrintToChat(i, "%T", "InstaDefuseSuccessful", i, MESSAGE_PREFIX, defuser, c4TimeLeft);
+			PrintToChat(i, "%T", "InstaDefuseSuccessful", i, MESSAGE_PREFIX, c4TimeLeft);
 		}
 	}
 
@@ -209,7 +209,7 @@ void AttemptInstantDefuse(int defuser, int exemptNade = 0)
 
 	EndRound(CS_TEAM_CT);
 
-	OnInstantDefusePost(defuser, c4);
+	OnInstantDefusePost(client, c4);
 }
 
 public Action Event_AttemptInstantDefuse(Handle event, const char[] name, bool dontBroadcast)
@@ -268,11 +268,11 @@ public Action Timer_MolotovThreatEnd(Handle timer)
     }
 }
 
-void OnInstantDefusePost(int defuser, int c4)
+void OnInstantDefusePost(int client, int c4)
 {
 	Call_StartForward(fw_OnInstantDefusePost);
 
-	Call_PushCell(defuser);
+	Call_PushCell(client);
 	Call_PushCell(c4);
 
 	Call_Finish();
@@ -323,12 +323,12 @@ stock int GetDefusingPlayer()
     return 0;
 }
 
-stock bool OnInstandDefusePre(int defuser, int c4)
+stock bool OnInstandDefusePre(int client, int c4)
 {
 	Action response;
 
 	Call_StartForward(fw_OnInstantDefusePre);
-	Call_PushCell(defuser);
+	Call_PushCell(client);
 	Call_PushCell(c4);
 	Call_Finish(response);
 
