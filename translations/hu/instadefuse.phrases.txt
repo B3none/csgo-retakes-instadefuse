@@ -3,7 +3,7 @@
     "InstaDefuseUnsuccessful"
     {
         "#format"	"{1:s},{2:N},{3:.2f}"
-        "hu"		"{1} {2} {3} Másodperc volt hátra a bomba robbanásáig, a terroristák nyertek!"
+        "hu"		"{1} {2} {3} másodpercre volt a bomba hatástalanításától."
     }
     
     "LiveNadeSomewhere"
