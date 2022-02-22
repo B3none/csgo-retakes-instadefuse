@@ -3,7 +3,7 @@
 	"InstaDefuseUnsuccessful"
 	{
 		"#format"	"{1:s},{2:N},{3:.2f}"
-		"de"		"{1} {2} Es waren {3} Sekunden übrig bis zur Explosion. Die Terroristen gewinnen."
+		"de"		"{1} {2} war {3} Sekunden davon entfernt, die Bombe zu entschärfen."
 	}
 
 	"LiveNadeSomewhere"
