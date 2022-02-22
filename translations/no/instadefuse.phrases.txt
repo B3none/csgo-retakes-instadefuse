@@ -3,7 +3,7 @@
     "InstaDefuseUnsuccessful"
     {
         "#format"	"{1:s},{2:N},{3:.2f}"
-        "no"		"{1} {2} Det er {3} sekund igjen av bomben, T vinner!"
+        "no"		"{1} {2} var {3} sekunder unna å uskadeliggjøre bomben."
     }
     
     "LiveNadeSomewhere"
