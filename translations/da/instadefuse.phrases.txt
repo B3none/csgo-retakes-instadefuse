@@ -9,13 +9,13 @@
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "da"        "{1} Der er en granat i nærheden. Held og lykke med at defuse!"
+        "da"        "{1} Der er en granat i nærheden."
     }
 
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
-        "da"        "{1} Der er en molotov tæt på bomben. Held og lykke med at defuse!"
+        "da"        "{1} Der er en molotov tæt på bomben."
     }
 
     "InstaDefuseSuccessful"
