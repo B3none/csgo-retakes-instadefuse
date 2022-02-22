@@ -9,13 +9,13 @@
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "chi"        "{1} 附近有被扔出的投掷物, 祝你好运！"
+        "chi"        "{1} 附近有被扔出的投掷物"
     }
     
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
-        "chi"        "{1} 附近有燃烧弹, 祝你好运！"
+        "chi"        "{1} 附近有燃烧弹"
     }
     
     "InstaDefuseSuccessful"
