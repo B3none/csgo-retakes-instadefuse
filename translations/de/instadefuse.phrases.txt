@@ -21,7 +21,7 @@
 	"InstaDefuseSuccessful"
 	{
 		"#format"	"{1:s},{2:N},{3:.2f}"
-		"de"		"{1} {2} Es waren {3} Sekunden übrig bis zur Explosion. Die Antiterroreinheit gewinnt."
+		"de"		"{1} {2} entschärft mit noch {3} Sekunden!"
 	}
 
     "TeammateHasDefuseKit"
