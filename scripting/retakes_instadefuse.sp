@@ -24,7 +24,7 @@ public Plugin myinfo =
     name = "[Retakes] Instant Defuse",
     author = "B3none",
     description = "Allows a CT to instantly defuse the bomb when all Ts are dead and nothing can prevent the defusal.",
-    version = "1.5.0",
+    version = "1.5.1",
     url = "https://github.com/b3none"
 }
 
