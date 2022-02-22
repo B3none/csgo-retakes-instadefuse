@@ -21,7 +21,7 @@
     "InstaDefuseSuccessful"
     {
         "#format"    "{1:s},{2:N},{3:.2f}"
-        "pt"        "{1} {2} Havia {3} segundos até a bomba explodi. Os CT's ganharam a ronda."
+        "pt"        "{1} {2} desativado com {3} segundos restantes!"
     }
 
     "TeammateHasDefuseKit"
