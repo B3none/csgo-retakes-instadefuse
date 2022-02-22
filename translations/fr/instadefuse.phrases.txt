@@ -2,8 +2,8 @@
 {
     "InstaDefuseUnsuccessful"
     {
-        "#format"	"{1:s},{2:.1f}"
-        "fr"		"{1} Il restait {2} secondes avant l'explosion. Les terroristes gagnent."
+        "#format"	"{1:s},{2:N},{3:.2f}"
+        "fr"		"{1} {2} Il restait {3} secondes avant l'explosion. Les terroristes gagnent."
     }
 
     "LiveNadeSomewhere"
@@ -20,8 +20,8 @@
 
     "InstaDefuseSuccessful"
     {
-        "#format"    "{1:s},{2:.1f}"
-        "fr"        "{1} Il restait {2} secondes avant l'explosion. Les CT gagnents."
+        "#format"    "{1:s},{2:N},{3:.2f}"
+        "fr"        "{1} {2} Il restait {3} secondes avant l'explosion. Les CT gagnents."
     }
 
     "TeammateHasDefuseKit"
