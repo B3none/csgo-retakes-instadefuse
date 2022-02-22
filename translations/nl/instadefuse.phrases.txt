@@ -9,13 +9,13 @@
 	"LiveNadeSomewhere"
 	{
 		"#format"	"{1:s}"
-		"nl"		"{1} Er is er een granaat in de buurt. Success met defusen."
+		"nl"		"{1} Er is er een granaat in de buurt."
 	}
 
 	"MolotovTooClose"
 	{
 		"#format"	"{1:s}"
-		"nl"		"{1} Een molotov-granaat is dicht bij de bomb. Success met defusen."
+		"nl"		"{1} Een molotov-granaat is dicht bij de bomb."
 	}
 
 	"InstaDefuseSuccessful"
