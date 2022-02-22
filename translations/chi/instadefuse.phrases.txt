@@ -3,7 +3,7 @@
     "InstaDefuseUnsuccessful"
     {
         "#format"	"{1:s},{2:N},{3:.2f}"
-        "chi"		"{1} {2} 距离化解还有 {3}"
+        "chi"		"{1} {2} 距离化解还有 {3} 秒"
     }
     
     "LiveNadeSomewhere"
@@ -21,7 +21,7 @@
     "InstaDefuseSuccessful"
     {
         "#format"    "{1:s},{2:N},{3:.2f}"
-        "chi"        "{1} {2} 距离炸弹爆炸还有 {3} 秒, 反恐精英胜利"
+        "chi"        "{1} {2} 化解，剩余 {3} 秒"
     }
 
     "TeammateHasDefuseKit"
