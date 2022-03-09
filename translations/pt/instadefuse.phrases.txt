@@ -3,13 +3,13 @@
     "InstaDefuseUnsuccessful"
     {
         "#format"	"{1:s},{2:.1f}"
-        "pt"		"{1} Haviam {2} segundos até a bomba explodir. Os T's ganharam a ronda."
+        "pt"		"{1} Haviam {2} segundos até a bomba explodir. Os Ts ganharam o round."
     }
     
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "pt"        "{1} Existe uma nade ativa em algum lado. Boa Sorte a defusar!"
+        "pt"        "{1} Existe uma nade ativa em algum lado. Boa sorte a defusar!"
     }
     
     "MolotovTooClose"
@@ -21,7 +21,7 @@
     "InstaDefuseSuccessful"
     {
         "#format"    "{1:s},{2:.1f}"
-        "pt"        "{1} Havia {2} segundos até a bomba explodi. Os CT's ganharam a ronda."
+        "pt"        "{1} Havia {2} segundos até a bomba explodir. Os CTs ganharam o round."
     }
 
     "TeammateHasDefuseKit"
