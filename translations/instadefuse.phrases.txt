@@ -2,26 +2,26 @@
 {
     "InstaDefuseUnsuccessful"
     {
-        "#format"	"{1:s},{2:.1f}"
-        "en"		"{1} There were {2} seconds left of the bomb. Terrorists win."
+        "#format"	"{1:s},{2:N},{3:.2f}"
+        "en"		"{1} {2} was {3}s away from defusing."
     }
     
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "en"        "{1} There is an active grenade somewhere. Good luck defusing!"
+        "en"        "{1} There is an active grenade somewhere."
     }
     
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
-        "en"        "{1} There is a molotov close to the bomb. Good luck defusing!"
+        "en"        "{1} There is a molotov close to the bomb."
     }
     
     "InstaDefuseSuccessful"
     {
-        "#format"    "{1:s},{2:.1f}"
-        "en"        "{1} There were {2} seconds left of the bomb. Counter Terrorists win."
+        "#format"    "{1:s},{2:N},{3:.2f}"
+        "en"        "{1} {2} defused with {3}s remaining!"
     }
 	
     "TeammateHasDefuseKit"

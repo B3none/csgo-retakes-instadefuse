@@ -2,31 +2,31 @@
 {
 	"InstaDefuseUnsuccessful"
 	{
-		"#format"	"{1:s},{2:.1f}"
-		"nl"		"{1} Er waren nog {2} seconden over op de bomb. Ts winnen."
+		"#format"	"{1:s},{2:N},{3:.2f}"
+		"nl"		"{1} {2} was {3} seconden verwijderd van het onschadelijk maken van de bom."
 	}
 
 	"LiveNadeSomewhere"
 	{
 		"#format"	"{1:s}"
-		"nl"		"{1} Er is er een granaat in de buurt. Success met defusen."
+		"nl"		"{1} Er is er een granaat in de buurt."
 	}
 
 	"MolotovTooClose"
 	{
 		"#format"	"{1:s}"
-		"nl"		"{1} Een molotov-granaat is dicht bij de bomb. Success met defusen."
+		"nl"		"{1} Een molotov-granaat is dicht bij de bomb."
 	}
 
 	"InstaDefuseSuccessful"
 	{
-		"#format"	"{1:s},{2:.1f}"
-		"nl"		"{1} Er waren nog {2} seconden over op de bomb. CTs winnen."
+		"#format"	"{1:s},{2:N},{3:.2f}"
+		"nl"		"{1} {2} onschadelijk gemaakt met nog {3} seconden over!"
 	}
 
-    "TeammateHasDefuseKit"
-    {
-        "#format"    "{1:s}"
-        "nl"        "{1} Je hebt geen tijd! Je teamgenoot heeft een Defuse Kit!"
-    }
+	"TeammateHasDefuseKit"
+	{
+		"#format"    "{1:s}"
+		"nl"        "{1} Je hebt geen tijd! Je teamgenoot heeft een Defuse Kit!"
+	}
 }

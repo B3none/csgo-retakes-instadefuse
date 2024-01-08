@@ -2,26 +2,26 @@
 {
     "InstaDefuseUnsuccessful"
     {
-        "#format"	"{1:s},{2:.1f}"
-        "chi"		"{1} 距离炸弹爆炸仅剩 {2} 秒, 恐怖分子胜利"
+        "#format"	"{1:s},{2:N},{3:.2f}"
+        "chi"		"{1} {2} 距离化解还有 {3} 秒"
     }
     
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "chi"        "{1} 附近有被扔出的投掷物, 祝你好运！"
+        "chi"        "{1} 附近有被扔出的投掷物"
     }
     
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
-        "chi"        "{1} 附近有燃烧弹, 祝你好运！"
+        "chi"        "{1} 附近有燃烧弹"
     }
     
     "InstaDefuseSuccessful"
     {
-        "#format"    "{1:s},{2:.1f}"
-        "chi"        "{1} 距离炸弹爆炸还有 {2} 秒, 反恐精英胜利"
+        "#format"    "{1:s},{2:N},{3:.2f}"
+        "chi"        "{1} {2} 化解，剩余 {3} 秒"
     }
 
     "TeammateHasDefuseKit"

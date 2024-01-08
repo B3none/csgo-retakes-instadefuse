@@ -2,26 +2,26 @@
 {
 	"InstaDefuseUnsuccessful"
 	{
-		"#format"	"{1:s},{2:.1f}"
-		"de"		"{1} Es waren {2} Sekunden übrig bis zur Explosion. Die Terroristen gewinnen."
+		"#format"	"{1:s},{2:N},{3:.2f}"
+		"de"		"{1} {2} war {3} Sekunden davon entfernt, die Bombe zu entschärfen."
 	}
 
 	"LiveNadeSomewhere"
 	{
 		"#format"	"{1:s}"
-		"de"		"{1} Ein gezündete Granate ist unterwegs. Viel Glück mit dem Entschärfen!"
+		"de"		"{1} Ein gezündete Granate ist unterwegs."
 	}
 
 	"MolotovTooClose"
 	{
 		"#format"	"{1:s}"
-		"de"		"{1} Ein Molotov ist nahe der Bombe. Viel Glück mit dem Entschärfen!"
+		"de"		"{1} Ein Molotov ist nahe der Bombe."
 	}
 
 	"InstaDefuseSuccessful"
 	{
-		"#format"	"{1:s},{2:.1f}"
-		"de"		"{1} Es waren {2} Sekunden übrig bis zur Explosion. Die Antiterroreinheit gewinnt."
+		"#format"	"{1:s},{2:N},{3:.2f}"
+		"de"		"{1} {2} entschärft mit noch {3} Sekunden!"
 	}
 
     "TeammateHasDefuseKit"

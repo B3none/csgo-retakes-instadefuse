@@ -2,26 +2,26 @@
 {
     "InstaDefuseUnsuccessful"
     {
-        "#format"	"{1:s},{2:.1f}"
-        "hu"		"{1} {2} Másodperc volt hátra a bomba robbanásáig, a terroristák nyertek!"
+        "#format"	"{1:s},{2:N},{3:.2f}"
+        "hu"		"{1} {2} {3} másodpercre volt a bomba hatástalanításától."
     }
     
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "hu"        "{1} Egy gránát van közel a bombához. Sok sikert a hatástalanításhoz!"
+        "hu"        "{1} Egy gránát van közel a bombához."
     }
     
     "MolotovTooClose"
     {
         "#format"    "{1:s}"
-        "hu"        "{1} Egy molotov túl közel van a bombához! Sok sikert a hatástalanításhoz!"
+        "hu"        "{1} Egy molotov túl közel van a bombához!"
     }
     
     "InstaDefuseSuccessful"
     {
-        "#format"    "{1:s},{2:.1f}"
-        "hu"        "{1} {2} Másodperc volt hátra a bomba robbanásáig, a CT-k nyertek!"
+        "#format"    "{1:s},{2:N},{3:.2f}"
+        "hu"        "{1} {2} hatástalanított, {3} másodperc van hátra!"
     }
 
     "TeammateHasDefuseKit"
