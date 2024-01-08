@@ -9,7 +9,7 @@
     "LiveNadeSomewhere"
     {
         "#format"    "{1:s}"
-        "pt"        "{1} Existe uma nade ativa em algum lado. Boa Sorte a defusar!"
+        "pt"        "{1} Existe uma nade ativa em algum lado. Boa sorte a defusar!"
     }
     
     "MolotovTooClose"
